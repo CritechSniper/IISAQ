@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables - KEPT */
+        :root {
+            --base-clr:#11121a;
+            --line-clr:#42434a;
+            --hover-clr:#222533;
+            --text-clr:#e6e6ef;
+            --acent-clr:#5e63ff;
+            --secondary-text-clr:#b0b3c1;
+            --btn-hover-clr:hsl(240, 100%, 75%);
+            --btn-clr:hsl(240, 100%, 70%);
+        }
+        /* Base Styling */
+        * {
+            box-sizing: border-box;
+            /* Applying base-clr to all for background is problematic, 
+               so we only apply it to the body and let specific elements use hover-clr */
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-color: var(--base-clr);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px; /* Added padding for mobile view */
+            line-height: 1.6;
+        }
+
+        /* Container & Text Styling */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 30px;
+            background-color: var(--hover-clr);
+            border: 2px solid var(--line-clr);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Ensure all text elements use the hover-clr background and text-clr foreground */
+        h1, p, ol, ul, li, strong, a {
+            color: var(--text-clr);
+            background-color: var(--hover-clr);
+        }
+        
+        h1 {
+            color: var(--acent-clr);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .terms-date {
+            color: var(--secondary-text-clr);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .terms-date .date {
+            color: var(--acent-clr);
+        }
+
+        .brand {
+            color: var(--acent-clr);
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(94, 99, 255, 0.4);
+            cursor: pointer;
+        }
+        
+        ol.terms-list {
+            padding-left: 25px;
+            margin-top: 20px;
+        }
+        ol.terms-list > li {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        ol.terms-list > li > p {
+            font-weight: 400;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        ol.terms-list > li > ul {
+            list-style: disc;
+            padding-left: 20px;
+            font-weight: 400;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><strong>Privacy Policy</strong></h1>
+        <p class="terms-date"><strong>Last updated:</strong> <span class="date">November 13, 2025</span></p>
+
+        <p><strong>Your privacy matters to us at <span class="brand" onclick="window.location.href='index.html'">AssignHub</span>.</strong> This policy explains what data we collect and how we use it to provide our assignment management services responsibly and securely.</p>
+
+        <ol class="terms-list">
+            <li>
+                <strong>Information We Collect (For Service Provision)</strong>
+                <ul>
+                    <li><strong>Account Information</strong>: Email address, username, and encrypted password (required for login).</li>
+                    <li><strong>Assignment Data</strong>: Assignment name, due dates, course name, status (e.g., pending, complete), and associated notes/files uploaded by the user.</li>
+                    <li><strong>Usage Data</strong>: Non-personal data about how the platform is used (e.g., features accessed, login frequency) to monitor stability and performance.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>How We Utilize Your Data</strong>
+                <ul>
+                    <li>To save, organize, and present your personal assignment and course schedule data.</li>
+                    <li>To provide essential functions like due date reminders and progress tracking.</li>
+                    <li>To improve AssignHub's features, performance, and user experience.</li>
+                    <li>To communicate essential service updates (via the provided email).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Data Sharing and Security Commitment</strong>
+                <ul>
+                    <li>We operate a strict **no-sharing, no-selling policy**. Your personal data and academic information are never sold, rented, or shared with third-party advertisers.</li>
+                    <li>Data is stored using secure, encrypted industry-standard infrastructure.</li>
+                    <li>We implement measures to protect against unauthorized access or data loss.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Your Control and Rights</strong>
+                <ul>
+                    <li>You have the right to access, correct, or delete your personal information and all associated assignment data at any time via your account settings.</li>
+                    <li>If you delete your account, all associated assignment data will be permanently removed from our active databases within a reasonable period.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Policy Updates and Contact</strong>
+                <p>We may update this policy periodically. We will notify you of significant changes. For any questions or to exercise your rights, please contact us:</p>
+                <ul>
+                    <li><strong>Contact:</strong> [Insert Contact Email or Form Link Here]</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssignHub - Your Academic Success Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* 1. CSS Variables (The Root) - KEPT */
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        /* 2. Base & Utility Styles */
+        body {
+            background-color: var(--base-clr);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-clr); 
+            -webkit-font-smoothing: antialiased; 
+        }
+
+        .hero-bg {
+            /* Using a new image with the accent color background for better look */
+            background-image: url('https://placehold.co/1920x1080/0e1017/5e63ff?text=.+.+.');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 3. Custom Utility Color Classes (Replacing inline Tailwind color utilities) */
+        .bg-base { background-color: var(--base-clr); }
+        .bg-accent { background-color: var(--acent-clr); }
+        .bg-hover { background-color: var(--hover-clr); }
+        .border-line { border-color: var(--line-clr); }
+        .text-text { color: var(--text-clr); }
+        .text-accent { color: var(--acent-clr); }
+        .text-secondary { color: var(--secondary-text-clr); }
+        
+        /* 4. Custom Component Styles */
+
+        /* Header & Navigation Styles */
+        .main-header {
+            position: sticky;
+            top: 0;
+            background-color: color-mix(in srgb, var(--base-clr) 90%, transparent); 
+            backdrop-filter: blur(4px); 
+            z-index: 50;
+            border-bottom: 1px solid var(--line-clr);
+        }
+
+        .nav-link {
+            color: var(--secondary-text-clr);
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: var(--text-clr);
+        }
+        
+        /* Dropdown Fix */
+        .dropdown-container {
+            position: relative;
+            /* Fixes the hover gap */
+            padding-bottom: 5px; 
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 150px;
+            background-color: var(--hover-clr);
+            border: 1px solid var(--line-clr);
+            border-radius: 0.5rem;
+            margin-top: 0; /* Ensures connection */
+            padding: 0.5rem 0;
+            z-index: 60; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none; 
+        }
+        
+        .dropdown-container:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--secondary-text-clr);
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--acent-clr);
+            color: var(--text-clr);
+        }
+        
+        /* Login Button Style */
+        .btn-login {
+            padding: 0.5rem 1rem; 
+            background-color: var(--acent-clr);
+            color: var(--text-clr); 
+            font-weight: 600; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 5px 10px color-mix(in srgb, var(--acent-clr) 50%, transparent); 
+            transition: background-color 0.3s;
+        }
+        .btn-login:hover {
+            background-color: var(--btn-hover-clr);
+        }
+        
+        /* Secondary Button Style (e.g., Explore Features) */
+        .btn-secondary {
+            padding: 0.75rem 2rem;
+            border: 1px solid var(--secondary-text-clr);
+            color: var(--secondary-text-clr);
+            font-weight: 500;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: var(--hover-clr);
+        }
+        
+        /* Primary CTA Button (Hero/Sign Up) */
+        .btn-cta-primary {
+            padding: 0.75rem 2rem;
+            background-color: var(--acent-clr);
+            color: var(--text-clr);
+            font-weight: bold;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--acent-clr) 50%, transparent);
+            transition: all 0.3s;
+        }
+        .btn-cta-primary:hover {
+            background-color: var(--btn-hover-clr);
+            transform: scale(1.05);
+        }
+
+        /* Feature Card Style */
+        .feature-card {
+            background-color: var(--hover-clr);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--line-clr);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--acent-clr) 30%, transparent), 0 4px 6px -4px rgba(0, 0, 0, 0.1); 
+            transform: scale(1.02); 
+        }
+        
+        /* Scrollbar Styling - KEPT */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--base-clr);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--acent-clr);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--btn-hover-clr);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-extrabold text-accent tracking-wider">Assign<span class="text-text">Hub</span></a>
+                </div>
+
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#about" class="nav-link">About Us</a>
+                    <a href="mailto:waleed.gamer173@gmail.com" class="nav-link">Contact</a>
+                </nav>
+
+                <div class="flex items-center space-x-4">
+                    <div class="dropdown-container">
+                        <button class="btn-login">
+                            Log In 🔑
+                        </button>
+                        
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Log as Teacher</a>
+                            <a href="#" class="dropdown-item">Log as Student</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="hero-bg h-[90vh] flex items-center justify-center text-center relative">
+            <div class="absolute inset-0 bg-base/60 backdrop-brightness-75"></div>
+            
+            <div class="z-10 max-w-4xl px-4">
+                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight">
+                    <span class="text-text">Master</span> Your <span class="text-accent">Assignments</span>
+                </h1>
+                <p class="text-xl text-secondary text-secondary-text mb-10 max-w-3xl mx-auto">
+                    Centralize, organize, and submit all your academic tasks effortlessly. Focus on learning, we'll handle the logistics.
+                </p>
+                <div class="space-x-4">
+                    <button class="btn-cta-primary">
+                        Log in as Student
+                    </button>
+                    <a href="#features" class="btn-secondary">
+                        Explore Features
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 md:py-32 border-t border-line">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-4 text-text">Productivity, Simplified.</h2>
+                <p class="text-lg text-secondary-text text-center mb-16">
+                    Everything you need to manage your workload, all in one place.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <div class="text-accent text-3xl mb-4">📚</div>
+                        <h3 class="text-2xl font-semibold mb-3 text-text">Centralized Submissions</h3>
+                        <p class="text-secondary">Upload documents, links, and code snippets directly to their designated course folders. Never lose a file again.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="text-accent text-3xl mb-4">🗓️</div>
+                        <h3 class="text-2xl font-semibold mb-3 text-text">Due Date Tracking</h3>
+                        <p class="text-secondary">Automatic reminders and a clear calendar view so you know exactly what is due, and when.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="text-accent text-3xl mb-4">🔒</div>
+                        <h3 class="text-2xl font-semibold mb-3 text-text">Secure & Private</h3>
+                        <p class="text-secondary">Your academic records are encrypted and private. Access your data anytime, from any device.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-base/50"> 
+            <div class="max-w-4xl mx-auto text-center px-4">
+                <h2 class="text-4xl font-extrabold mb-4 text-text">Ready to boost your grades?</h2>
+                <p class="text-xl text-secondary mb-8">
+                    Start organizing your workload today.
+                </p>
+                <button class="btn-cta-primary">
+                    Sign Up Now - It's Free!
+                </button>
+            </div>
+        </section>
+        
+        <section id="about" class="py-20 md:py-32 border-t border-line">
+            <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-4 text-text">Meet the Team 🤝</h2>
+                <p class="text-lg text-secondary mb-16">
+                    Meet the people who make it work.
+                </p>
+
+                <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-12">
+                    
+                    <div class="team-member">
+                        <h3 class="text-2xl font-semibold text-accent mb-2">Waleed Ammar</h3>
+                        <p class="text-secondary text-base">Founder & Lead Developer</p>
+                    </div>
+
+                    <div class="team-member">
+                        <h3 class="text-2xl font-semibold text-accent mb-2">M. Abul Qasim</h3>
+                        <p class="text-secondary text-base">Co-Founder & Design Strategist</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-base border-t border-line py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-secondary">
+            <p>&copy; 2025 AssignHub. All rights reserved.</p>
+            <div class="mt-2 space-x-4">
+                <a href="/privacy.html" class="nav-link">Privacy Policy</a>
+                <a href="/terms.html" class="nav-link">Terms of Service</a>
+                <a href="mailto:waleed.gamer173@gmail.com" class="nav-link">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
