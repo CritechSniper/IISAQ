@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+	--base-clr:#11121a;
+	--line-clr:#42434a;
+	--hover-clr:#222533;
+	--text-clr:#e6e6ef;
+	--acent-clr:#5e63ff;
+	--secondary-text-clr:#b0b3c1;
+	--btn-hover-clr:hsl(240, 100%, 75%);
+	--btn-clr:hsl(240, 100%, 70%);
+}
+* {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+	background-color: var(--base-clr);
+}
+main h1 {
+    color: var(--text-clr);
+    margin: 10px 0px 0px 10px;
+}
+.detailsdiv {
+    padding: 10px;
+    border: 1px solid var(--line-clr);
+    border-radius: 5px;
+    margin: 10px;
+    padding-left: 17px;
+    color: var(--text-clr);
+}
+.detailsdiv h2 {
+    margin-top: 0;
+}
+#aStart {
+	background-color: var(--btn-clr);
+	border: none;
+	color: var(--text-clr);
+	padding: 5px 15px;
+    margin-bottom: 10px;
+	border-radius: 5px;
+	/* margin-left: 10px; */
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+}
+#aStart:hover {
+	background-color: var(--btn-hover-clr);
+}
