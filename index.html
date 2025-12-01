@@ -253,7 +253,7 @@
                     Centralize, organize, and submit all your academic tasks effortlessly. Focus on learning, we'll handle the logistics.
                 </p>
                 <div class="space-x-4">
-                    <button class="btn-cta-primary" onclick="window.location.href = `/login.html`">
+                    <button class="btn-cta-primary" onclick="window.location.href = `/login.html?type=student`;">
                         Log in as Student
                     </button>
                     <a href="#features" class="btn-secondary">
@@ -335,7 +335,7 @@
         <li class="menu-item" id="stLog">Quick St. Login</li>
         <li class="menu-item" id="teLog">Quick Te. Login</li>
     </ul>
-    <script>
+    <sdcript>
         let menu = null;
         document.addEventListener('DOMContentLoaded', function(){
             //make sure the right click menu is hidden
@@ -372,7 +372,7 @@
             ev.preventDefault(); 
             //show the custom menu
             console.log( ev.clientX, ev.clientY );
-            menu.style.top = `${ev.clientY}px`; //-20px if extra
+            menu.style.top = `${ev.clientY}px`;
             menu.style.left = `${ev.clientX}px`;
             menu.classList.remove('off');
         }
@@ -383,5 +383,6 @@
             menu.style.left = '-200%';
         }
     </script>
+    <script src="contextmenu.js"></script>
 </body>
 </html>

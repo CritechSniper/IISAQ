@@ -3,19 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - IISAQ</title>
+    <title>IISAQ Login</title>
+    
+    <style>
+        /* --- CSS STYLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            /* Provided Variables */
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff; /* Student Accent (Default) */
+            --secondary-text-clr: #b0b3c1;
+            --btn-clr: hsl(240, 100%, 70%);
+            --btn-hover-clr: hsl(240, 100%, 75%);
+
+            /* Dynamic Variables */
+            --current-accent: var(--acent-clr);
+            --current-btn-clr: var(--btn-clr);
+            --current-btn-hover-clr: var(--btn-hover-clr);
+
+            /* Error State */
+            --error-clr: #ff4757;
+        }
+
+        /* --- THEME OVERRIDES --- */
+
+        /* Teacher Theme: Overrides the dynamic variables */
+        .teacher-theme {
+            --teacher-accent-clr: #00b894; 
+            --current-accent: var(--teacher-accent-clr);
+            --current-btn-clr: var(--teacher-accent-clr);
+            --current-btn-hover-clr: #00c9a2; 
+        }
+
+        /* Error Theme: For missing user type */
+        .error-theme {
+            --current-accent: var(--error-clr);
+            --current-btn-clr: var(--error-clr);
+        }
+
+        /* --- BASE STYLES --- */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container {
+            background-color: var(--hover-clr); 
+            padding: 40px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--line-clr);
+            transition: border-color 0.3s ease;
+        }
+
+        /* Error state border */
+        .error-theme .login-container {
+            border-color: var(--error-clr);
+        }
+
+        #page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--current-accent); 
+            transition: color 0.3s ease;
+        }
+
+        /* --- FORM & INPUT STYLES --- */
+
+        .login-form {
+            /* Initially visible */
+            display: block; 
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary-text-clr);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--line-clr);
+            border-radius: 8px;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--current-accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(var(--current-accent), 0.5);
+        }
+
+        /* --- BUTTON & LINK STYLES --- */
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-clr); 
+            background-color: var(--current-btn-clr); 
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--current-btn-hover-clr);
+            transform: translateY(-1px);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: var(--secondary-text-clr);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--current-accent);
+        }
+
+        /* --- ERROR MESSAGE STYLES --- */
+        #error-message {
+            text-align: center;
+            font-size: 1.1em;
+            color: var(--error-clr);
+            /* Initially hidden */
+            display: none; 
+        }
+        
+        #countdown {
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        /* Hiding the form when in error state */
+        .error-theme .login-form {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login to IISAQ</h1>
-    <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container">
+        <h1 id="page-title">IISAQ Login</h1>
+        
+        <div id="error-message">
+            <p>Error: User type not specified.</p>
+            <p>Redirecting to home in <span id="countdown">5</span> seconds...</p>
+        </div>
+
+        <form class="login-form" action="/" method="POST">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="off" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="off" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Login</button>
+            
+            <p class="forgot-password">
+                <a href="#">Forgot Password?</a>
+            </p>
+        </form>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const userType = urlParams.get('type');
+        const body = document.body;
+        const title = document.getElementById('page-title');
+        const errorMessage = document.getElementById('error-message');
+        const countdownElement = document.getElementById('countdown');
+        const redirectDelay = 5; // seconds
+        const homeURL = "/"; // Define your actual home page URL
+        
+        if (userType === 'teacher') {
+            body.classList.add('teacher-theme');
+            title.textContent = 'IISAQ Teacher Login';
+        } else if (userType === 'student') {
+            // Student theme is the default, but we set the title
+            title.textContent = 'IISAQ Student Login';
+            body.classList.add('student-theme');
+        } else {
+            // --- ERROR & REDIRECT LOGIC ---
+            body.classList.add('error-theme');
+            title.textContent = 'Access Denied';
+            errorMessage.style.display = 'block';
+
+            let remainingTime = redirectDelay;
+            countdownElement.textContent = remainingTime;
+
+            const interval = setInterval(() => {
+                remainingTime -= 1;
+                countdownElement.textContent = remainingTime;
+
+                if (remainingTime <= 0) {
+                    clearInterval(interval);
+                    // Redirect after countdown
+                    window.location.href = homeURL; 
+                }
+            }, 1000);
+        }
+    </script>
+
 </body>
-<script src="login.js"></script>
 </html>

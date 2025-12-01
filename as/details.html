@@ -1,22 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Details</title>
-    <link rel="stylesheet" href="details.css">
-</head>
-<body>
-    <main>
-    <h1>Assignment Details</h1>
-    <hr>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Details - IISAQ</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles and Variables -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-    <div class="detailsdiv">
-        <h2 id="aHead"></h2>
-        <p id="aID"></p>
-        <p id="aDue"></p>
-        <button id="aStart"></button>
-    </div>
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            min-height: 100vh;
+        }
+
+        /* Input styling to match the dark theme */
+        .themed-input {
+            background-color: var(--base-clr);
+            border: 1px solid var(--line-clr);
+            color: var(--text-clr);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        .themed-input:focus {
+            outline: none;
+            border-color: var(--acent-clr);
+            box-shadow: 0 0 0 1px var(--acent-clr);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <main class="max-w-4xl mx-auto">
+        
+        <a href="assigns.html" class="inline-flex items-center text-[var(--secondary-text-clr)] hover:text-[var(--acent-clr)] transition-colors mb-4">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Assignments
+        </a>
+
+        <h1 class="text-3xl font-bold mb-2">Assignment Details</h1>
+        <hr class="border-[var(--line-clr)] mb-8">
+
+        <!-- Assignment Detail Card -->
+        <div id="details-card" class="detailsdiv p-6 rounded-xl shadow-2xl bg-[var(--hover-clr)] border border-[var(--line-clr)] transition-opacity duration-300">
+            <!-- Content will be populated by JavaScript -->
+            <div id="loading-indicator" class="text-center py-12 text-[var(--secondary-text-clr)]">
+                Loading assignment details...
+            </div>
+
+            <div id="assignment-content" class="hidden">
+                <h2 id="aHead" class="text-3xl font-extrabold mb-2 text-white"></h2>
+                
+                <div class="flex flex-wrap gap-4 text-sm mb-6">
+                    <p id="aID" class="text-[var(--secondary-text-clr)] font-mono px-3 py-1 rounded-full bg-[var(--base-clr)] border border-[var(--line-clr)]"></p>
+                    <p id="aDue" class="text-amber-400 font-medium px-3 py-1 rounded-full bg-[var(--base-clr)] border border-[var(--line-clr)]"></p>
+                    <p id="aStatus" class="font-medium px-3 py-1 rounded-full bg-[var(--base-clr)] border border-[var(--line-clr)]"></p>
+                </div>
+
+                <div class="mt-6 border-t border-[var(--line-clr)] pt-6">
+                    <h3 class="text-xl font-semibold mb-2 text-[var(--acent-clr)]">Description</h3>
+                    <p id="aDescription" class="text-[var(--secondary-text-clr)] leading-relaxed"></p>
+                </div>
+                
+                <div class="mt-8">
+                    <button id="aStart" class="bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300 shadow-md transform hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed">
+                        Start Assignment
+                    </button>
+                </div>
+            </div>
+
+            <div id="error-message" class="hidden text-center py-12 text-red-500">
+                <p class="text-lg font-semibold">Error: Assignment not found.</p>
+                <p class="mt-2 text-sm text-[var(--secondary-text-clr)]">Please check the assignment ID in the URL.</p>
+            </div>
+        </div>
+
     </main>
-    <script src="details.js" defer></script>
+    
+    <!-- Start Modal UI (Hidden by default) -->
+    <div id="start-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center hidden transition-opacity duration-300">
+        <div class="bg-[var(--hover-clr)] p-6 md:p-8 rounded-xl max-w-lg w-full m-4 shadow-2xl transform transition-transform duration-300 scale-95 opacity-0" id="modal-content">
+            <h3 class="text-2xl font-bold mb-4 border-b border-[var(--line-clr)] pb-2">Confirm Identity to Start</h3>
+            <p class="text-[var(--secondary-text-clr)] mb-6">
+                Please enter your details to verify and begin Assignment <span id="modal-assign-id" class="font-bold text-[var(--acent-clr)]"></span>.
+            </p>
+            
+            <form id="start-form" class="space-y-4">
+                <div>
+                    <label for="input-name" class="block text-sm font-medium mb-1">Your Name</label>
+                    <input type="text" id="input-name" class="themed-input w-full" required placeholder="John Doe">
+                </div>
+                <div>
+                    <label for="input-dob" class="block text-sm font-medium mb-1">Date of Birth (YYYY-MM-DD)</label>
+                    <input type="date" id="input-dob" class="themed-input w-full" required>
+                </div>
+                <div>
+                    <label for="input-teacher" class="block text-sm font-medium mb-1">Teacher's Name</label>
+                    <input type="text" id="input-teacher" class="themed-input w-full" required placeholder="Ms. Smith">
+                </div>
+                
+                <div class="flex justify-end pt-4 space-x-3">
+                    <button type="button" id="modal-cancel" class="text-[var(--secondary-text-clr)] hover:text-white px-4 py-2 rounded-lg transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-colors">
+                        Proceed to Start
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Mock Data ---
+        // Mock database for demonstration purposes
+        const mockAssignments = {
+            "141242": {
+                title: "Assignment 1: Data Analysis Report",
+                dueDate: "2025-12-10T20:00:00",
+                description: "This assignment requires you to analyze the provided dataset on global energy consumption (Dataset 4.A) and write a comprehensive report detailing key trends, anomalies, and future projections. The report must be between 1,500 and 2,000 words.",
+                status: "Pending"
+            },
+            "141243": {
+                title: "Assignment 2: Database Schema Design",
+                dueDate: "2025-12-25T12:00:00",
+                description: "Design a relational database schema for a medium-sized e-commerce platform. Include necessary tables, relationships, primary keys, and indices. Deliverable is an E-R diagram and a SQL script to create the tables.",
+                status: "Pending"
+            },
+            "141244": {
+                title: "Assignment 3: Introduction to Project Mgmt",
+                dueDate: "2025-11-15T23:59:00",
+                description: "A short paper summarizing the five phases of the project life cycle and their relevance in modern software development. Submission closed.",
+                status: "Submitted"
+            }
+        };
+
+        // --- Core Application Logic ---
+
+        // Global element references
+        const headElem = document.getElementById("aHead");
+        const idElem = document.getElementById("aID");
+        const dueElem = document.getElementById("aDue");
+        const statusElem = document.getElementById("aStatus");
+        const descElem = document.getElementById("aDescription");
+        const startBtn = document.getElementById("aStart");
+        const loadingIndicator = document.getElementById("loading-indicator");
+        const assignmentContent = document.getElementById("assignment-content");
+        const errorMessage = document.getElementById("error-message");
+
+        // Modal elements
+        const startModal = document.getElementById("start-modal");
+        const modalContent = document.getElementById("modal-content");
+        const startForm = document.getElementById("start-form");
+        const modalCancelBtn = document.getElementById("modal-cancel");
+        const modalAssignId = document.getElementById("modal-assign-id");
+
+
+        /**
+         * Parses the assignment details from the URL and renders them.
+         */
+        function renderAssignmentDetails() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+
+            loadingIndicator.classList.add('hidden');
+
+            if (!id || !mockAssignments[id]) {
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            const assignment = mockAssignments[id];
+            
+            // --- Populate Content ---
+            headElem.textContent = assignment.title;
+            idElem.textContent = `¤ ${id}`;
+            dueElem.textContent = `Due: ${new Date(assignment.dueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`;
+            descElem.textContent = assignment.description;
+            statusElem.textContent = assignment.status;
+
+            // Apply status styling
+            statusElem.classList.remove('text-red-400', 'text-green-400', 'text-amber-400');
+            if (assignment.status === "Submitted") {
+                statusElem.classList.add('text-green-400');
+                startBtn.textContent = "View Submission";
+                startBtn.classList.remove('bg-[var(--btn-clr)]', 'hover:bg-[var(--btn-hover-clr)]');
+                startBtn.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else if (assignment.status === "Pending") {
+                statusElem.classList.add('text-amber-400');
+            } else {
+                statusElem.classList.add('text-red-400');
+            }
+
+            assignmentContent.classList.remove('hidden');
+            
+            // --- Setup Event Listeners ---
+            startBtn.addEventListener("click", () => {
+                if (assignment.status === "Pending") {
+                    showModal(id);
+                } else {
+                    // Navigate to view submission page (mocked)
+                    window.location.href = `/as/view.html?id=${id}`;
+                }
+            });
+
+            // Handle Start Form Submission
+            startForm.onsubmit = (e) => handleStartAssignment(e, id);
+        }
+
+        /**
+         * Modal Control Functions
+         */
+        function showModal(id) {
+            modalAssignId.textContent = id;
+            startModal.classList.remove('hidden');
+            // Animate in
+            setTimeout(() => {
+                startModal.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+                modalContent.style.opacity = '1';
+            }, 10);
+        }
+
+        function hideModal() {
+            // Animate out
+            modalContent.style.transform = 'scale(0.95)';
+            modalContent.style.opacity = '0';
+            startModal.style.opacity = '0';
+            setTimeout(() => {
+                startModal.classList.add('hidden');
+                startForm.reset(); // Clear form on close
+            }, 300);
+        }
+        
+        // Modal Event Listeners
+        modalCancelBtn.addEventListener('click', hideModal);
+        startModal.addEventListener('click', (e) => {
+            if (e.target === startModal) {
+                hideModal(); // Close if clicking outside the modal content
+            }
+        });
+        
+        /**
+         * Handles the final navigation after identity confirmation.
+         */
+        function handleStartAssignment(e, id) {
+            e.preventDefault();
+            
+            const name = document.getElementById('input-name').value;
+            const dob = document.getElementById('input-dob').value;
+            const teacher = document.getElementById('input-teacher').value;
+
+            // Client-side validation
+            if (!name || !dob || !teacher) {
+                // In a real app, display an inline error message here.
+                console.error("All fields are required to start the assignment.");
+                return;
+            }
+
+            // Encode values for safe URL passing
+            const url = `/as/start.html?id=${id}&name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}&teacher=${encodeURIComponent(teacher)}`;
+            
+            hideModal();
+            
+            // Navigate to the start page
+            window.location.href = url;
+        }
+
+
+        // --- Initialization ---
+        document.addEventListener("DOMContentLoaded", () => {
+            renderAssignmentDetails();
+            
+            // Utility functions for future LLM API calls (using exponential backoff)
+            window.llmFetch = async (url, options, retries = 3) => {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        return response;
+                    } catch (error) {
+                        if (i === retries - 1) {
+                            console.error("LLM API call failed after all retries:", error);
+                            throw error;
+                        }
+                        const delay = Math.pow(2, i) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            };
+        });
+    </script>
+</body>
 </html>

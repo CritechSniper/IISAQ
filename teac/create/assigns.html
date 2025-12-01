@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments Creator</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            min-height: 100vh;
+            user-select: none;
+            padding: 1.5rem;
+        }
+
+        /* Styling for the dynamically created question blocks */
+        #container .question {
+            border: 1px solid var(--line-clr);
+            background-color: var(--hover-clr);
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s;
+        }
+
+        #container .question:hover {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styling for the dynamically created inputs */
+        .question-input, .option-input {
+            background-color: var(--base-clr);
+            border: 1px solid var(--line-clr);
+            color: var(--text-clr);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem; /* Matches the <br> spacing */
+            transition: border-color 0.2s;
+            width: 100%;
+        }
+
+        .question-input:focus, .option-input:focus {
+            outline: none;
+            border-color: var(--acent-clr);
+            box-shadow: 0 0 0 1px var(--acent-clr);
+        }
+
+        /* Styling for labels */
+        .ql {
+            color: var(--secondary-text-clr);
+            font-size: 0.875rem; /* sm text */
+            margin-bottom: 0.25rem;
+        }
+
+        /* Styling for the options container */
+        #set .options {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Styling for the Preview Modal */
+        #prepo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            background-color: var(--base-clr);
+            border: 2px solid var(--acent-clr);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--text-clr);
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <main class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 flex justify-between items-center border-b border-[var(--line-clr)] pb-3">
+            Assignment Creator
+            <button id="prepobtn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm">
+                Preview
+            </button>
+        </h1>
+        
+        <div id="container">
+            <button id="add-question" title="Add a new question!" 
+                    class="bg-[var(--acent-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-bold text-lg p-3 rounded-full w-12 h-12 flex items-center justify-center transition-transform transform hover:scale-110 active:scale-95 mb-8">
+                +
+            </button>
+        </div>
+    </main>
+
+    <!-- The original JavaScript code is preserved here -->
+    <script type="module">
+        // Baisc login configurations, planned to be insterted into HTML in the future...
+        const API_URL="http://myIPAddressFake:5000"
+        
+        function ghtpe(a) {
+          if (!Array.isArray(a)) {
+            console.error("'a' is supposed to be an array");
+            return;
+          }
+
+          const pd = document.createElement("div");
+          pd.id = "pd";
+
+          const ind = document.createElement("select");
+          ind.id = "ind";
+          pd.appendChild(ind);
+
+          a.forEach(b => {
+            const pid = document.createElement("option");
+            pid.textContent = `Class: ${b.grade} | Section: ${b.section}`;
+            ind.appendChild(pid);
+          });
+
+          document.body.appendChild(pd);
+        }
+        // async function __init__() {
+        //       const r = await fetch(`${API_URL}/classes`, {
+        //         method: "POST", // use GET unless your API really requires POST
+        //         headers: {
+        //           "Content-Type": "application/json"
+        //         }
+        //       });
+        //       return await r.json();
+        //     }
+            
+        //     (async () => {
+        //       try {
+        //         const cls = await __init__();
+        //         ghtpe(cls?.classes);
+        //       } catch (err) {
+        //         console.error("Failed to load classes:", err);
+        //       }
+        //     })();
+        //     async function login() {
+        //       try {
+        //         const mes = prompt("Enter SID:");
+        //         const ami = prompt(`Enter password for ${mes}:`);
+        //         sessionStorage.setItem("ucr", {SID: mes, pwd: ami})
+        //         const fd = await fetch(`${API_URL}/teachers/login`, {
+        //           method: "POST",
+        //           headers: {
+        //             "Content-Type": "application/json"
+        //           },
+        //           body: JSON.stringify({
+        //             SID: mes,
+        //             password: ami
+        //           })
+        //         });
+          
+        //         const result = await fd.json();
+        //         return result;
+        //       }catch(err){
+        //         console.error(err)
+        //         if(err)return "failed";
+        //       }
+        //     }
+            
+        const ma = {
+          questions: [],
+          options: [[]]
+        };
+
+        document.addEventListener("click", (e) => {
+          if (e.target.classList.contains("add-option")) {
+            const questionDiv = e.target.closest(".question");
+            const qIndex = parseInt(questionDiv.dataset.index, 10);
+
+            if (ma.options[qIndex].length >= 4) {
+              // Replaced alert() with console.error as per instructions
+              return console.error("Maximum of 4 options can be inserted (UI: Please implement custom modal/message box).");
+            }
+
+            const optionInput = document.createElement("input");
+            optionInput.type = "text";
+            optionInput.className = "option-input";
+            optionInput.placeholder = `Option ${ma.options[qIndex].length + 1}`; // Added placeholder for clarity
+            optionInput.classList.add('w-full', 'mb-2'); // Tailwind for dynamic elements
+
+            const br = document.createElement("br");
+            questionDiv.querySelector(".options").appendChild(optionInput);
+            questionDiv.querySelector(".options").appendChild(br);
+
+            // Track in data model
+            const optIndex = ma.options[qIndex].length;
+            ma.options[qIndex].push("");
+
+            optionInput.addEventListener("input", (ev) => {
+              ma.options[qIndex][optIndex] = ev.target.value;
+            });
+          
+          }
+        });
+
+        document.getElementById("add-question").addEventListener("click", () => {
+          const qIndex = ma.questions.length;
+          ma.questions.push("");
+          ma.options.push([]);
+
+          const newQ = document.createElement("div");
+          newQ.className = "question";
+          newQ.dataset.index = qIndex;
+          
+          // Added styling to the button within the innerHTML
+          newQ.innerHTML = `
+            <label for="qi${qIndex}" class="ql">Question ${qIndex + 1} Content:</label>
+            <input type="text" id="qi${qIndex}" class="question-input" placeholder="Enter the question text...">
+            <button class="add-option bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors mt-2" title="Add option">Add Option</button>
+            <div class="options"></div>
+          `;
+
+          document.getElementById("container").insertBefore(newQ, document.getElementById("add-question"));
+
+          // Attach listener to update question text
+          newQ.querySelector(".question-input").addEventListener("input", (ev) => {
+            ma.questions[qIndex] = ev.target.value;
+          });
+        });
+
+        function preview() {
+          const old = document.getElementById("prepo");
+          if (old) old.remove();
+          
+          const div = document.createElement("div");
+          div.id = "prepo";
+          
+          ma.questions.forEach((p, index) => {
+            const qBlock = document.createElement("div");
+            qBlock.className = "mb-4 p-3 bg-[var(--hover-clr)] rounded";
+            qBlock.innerHTML = `<strong class="text-[var(--acent-clr)]">Q${index + 1}:</strong> ${p || 'No question text'}`;
+            
+            const opts = document.createElement("div");
+            opts.className = "mt-2 space-y-1 text-sm text-[var(--secondary-text-clr)]";
+            ma.options[index].forEach(o => {
+              const opt = document.createElement("div");
+              opt.textContent = `- ${o || 'Empty option'}`;
+              opts.appendChild(opt);
+            });
+
+            qBlock.appendChild(opts);
+            div.appendChild(qBlock);
+            div.appendChild(document.createElement("br"));
+          });
+          
+          const dbtn = document.createElement("button")
+          dbtn.innerHTML = "Destroy Preview"
+          dbtn.className = "mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors w-full";
+          dbtn.addEventListener("click", (e)=>{
+            div.remove()
+          })
+          
+          div.appendChild(dbtn)
+          document.body.appendChild(div);
+        }
+
+        document.getElementById("prepobtn").addEventListener("click", ()=>preview())
+    </script>
+</body>
+</html>
