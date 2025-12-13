@@ -1,34 +1,254 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Index</title>
-    <link rel="stylesheet" href="assigns.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IISAQ - Assignments</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles and Variables -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            min-height: 100vh;
+        }
+
+        /* Custom style for the accent bar */
+        .assignsdiv {
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            position: relative;
+            padding-left: 1rem; /* Space for the accent bar */
+            border-left: 4px solid var(--acent-clr); /* The accent bar */
+            margin-bottom: 1rem;
+        }
+
+        .assignsdiv:hover {
+            background-color: var(--hover-clr);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+        }
+    </style>
 </head>
-<body>
-    <main>
-    <h1>Assignments</h1>
-    <hr>
+<body class="p-4 sm:p-8">
 
-    <div class="assignsdiv" data-id="141242">
-        <div class="a">
-        <h2>Assignment 1</h2>
-        <div class="id">¤ 141242</div>
-        <p class="ap">Due: 2024-07-01</p>
-        <button class="sb" data-id="141242">Start</button>
-        </div>
-    </div>
+    <main class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-2">Assignments Overview</h1>
+        <p class="text-[var(--secondary-text-clr)] mb-6">A list of all pending and upcoming tasks.</p>
+        <hr class="border-[var(--line-clr)] mb-8">
 
-    <div class="assignsdiv" data-id="141243">
-        <div class="a">
-        <h2>Assignment 2</h2>
-        <div class="id">¤ 141243</div>
-        <p class="ap">Due: 2024-07-10</p>
-        <button class="sb" data-id="141243">Start</button>
-        </div>
-    </div>
+        <!-- Assignment List Container -->
+        <div id="assignment-list" class="space-y-4">
+
+            <!-- Example Assignment 1 -->
+            <!-- Note: Added data-due-date for time calculation -->
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141242" data-due-date="2025-12-10T20:00:00">
+                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
+                    
+                    <!-- Title (Col 1/2) -->
+                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 1: Data Analysis Report</h2>
+                    
+                    <!-- ID (Col 3) -->
+                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
+                        ¤ 141242
+                    </div>
+
+                    <!-- Due Date & Time Remaining (Col 4) -->
+                    <div class="col-span-1 text-right md:text-left">
+                        <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-10</p>
+                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141242">Calculating...</p>
+                    </div>
+
+                    <!-- Start Button (Col 5) -->
+                    <div class="flex justify-end col-span-1">
+                        <button class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md" data-id="141242">
+                            Start
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example Assignment 2 -->
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141243" data-due-date="2025-12-25T12:00:00">
+                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
+                    
+                    <!-- Title (Col 1/2) -->
+                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 2: Database Schema Design</h2>
+                    
+                    <!-- ID (Col 3) -->
+                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
+                        ¤ 141243
+                    </div>
+
+                    <!-- Due Date & Time Remaining (Col 4) -->
+                    <div class="col-span-1 text-right md:text-left">
+                        <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-25</p>
+                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141243">Calculating...</p>
+                    </div>
+
+                    <!-- Start Button (Col 5) -->
+                    <div class="flex justify-end col-span-1">
+                        <button class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md" data-id="141243">
+                            Start
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Assignment 3 (Past Due) -->
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141244" data-due-date="2025-11-15T23:59:00">
+                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
+                    
+                    <!-- Title (Col 1/2) -->
+                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 3: Introduction to Project Mgmt</h2>
+                    
+                    <!-- ID (Col 3) -->
+                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
+                        ¤ 141244
+                    </div>
+
+                    <!-- Due Date & Time Remaining (Col 4) -->
+                    <div class="col-span-1 text-right md:text-left">
+                        <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-11-15</p>
+                        <p class="time-remaining text-xs font-medium text-red-500" data-target="141244">EXPIRED</p>
+                    </div>
+
+                    <!-- Start Button (Col 5) -->
+                    <div class="flex justify-end col-span-1">
+                        <button class="sb bg-gray-600 cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg opacity-50" data-id="141244" disabled>
+                            Submitted
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Assignment List Container -->
     </main>
-    <script src="main.js" defer></script>
+
+    <script>
+        // --- Core Application Logic ---
+
+        // 1. Navigation Handlers
+        function setupNavigation() {
+            // Div click (opens details page)
+            document.querySelectorAll(".assignsdiv").forEach(div => {
+                div.addEventListener("click", () => {
+                    const id = div.dataset.id;
+                    // Simulating navigation based on your original JS
+                    window.location.href = `/as/details.html?id=${id}`;
+                });
+            });
+
+            // Start button click (opens start page)
+            document.querySelectorAll(".sb").forEach(button => {
+                button.addEventListener("click", (e) => {
+                    e.stopPropagation(); // Prevent the parent div's click event
+                    const id = button.dataset.id;
+                    // Simulating navigation based on your original JS
+                    if (!button.disabled) {
+                        window.location.href = `/as/start.html?id=${id}`;
+                    }
+                });
+            });
+        }
+
+        // 2. Time Remaining Calculation
+        function updateTimeRemaining() {
+            document.querySelectorAll(".assignsdiv").forEach(div => {
+                const dueDateStr = div.dataset.dueDate;
+                const assignmentId = div.dataset.id;
+                const timeElement = document.querySelector(`.time-remaining[data-target="${assignmentId}"]`);
+
+                if (!dueDateStr || !timeElement) return;
+
+                const dueDate = new Date(dueDateStr);
+                const now = new Date();
+                const difference = dueDate - now;
+
+                if (difference <= 0) {
+                    // Past Due
+                    timeElement.textContent = "Expired";
+                    timeElement.classList.remove('text-green-400');
+                    timeElement.classList.add('text-red-500');
+                    // Optionally disable start button if assignment is truly past due
+                    const startButton = document.querySelector(`.sb[data-id="${assignmentId}"]`);
+                    if (startButton && startButton.textContent !== 'Submitted') {
+                        startButton.textContent = 'View';
+                        startButton.classList.add('bg-gray-700', 'hover:bg-gray-700', 'cursor-pointer');
+                        startButton.classList.remove('bg-[var(--btn-clr)]', 'hover:bg-[var(--btn-hover-clr)]');
+                    }
+                } else {
+                    // Still time remaining
+                    const seconds = Math.floor(difference / 1000);
+                    const minutes = Math.floor(seconds / 60);
+                    const hours = Math.floor(minutes / 60);
+                    const days = Math.floor(hours / 24);
+
+                    const remainingHours = hours % 24;
+                    const remainingMinutes = minutes % 60;
+                    const remainingSeconds = seconds % 60;
+
+                    let timeString = '';
+                    if (days > 0) {
+                        timeString += `${days}d `;
+                    }
+                    if (remainingHours > 0 || days > 0) {
+                        timeString += `${remainingHours}h `;
+                    }
+                    if (remainingMinutes > 0 || remainingHours > 0 || days > 0) {
+                        timeString += `${remainingMinutes}m `;
+                    }
+                    timeString += `${remainingSeconds}s`;
+
+                    timeElement.textContent = `Time Remaining: ${timeString.trim()}`;
+                    timeElement.classList.remove('text-red-500');
+                    timeElement.classList.add('text-green-400');
+                }
+            });
+        }
+
+        // 3. Initialization
+        document.addEventListener("DOMContentLoaded", () => {
+            setupNavigation();
+            
+            // Run time update immediately and then every second
+            updateTimeRemaining();
+            setInterval(updateTimeRemaining, 1000);
+
+            // Utility functions for future LLM API calls (using exponential backoff)
+            window.llmFetch = async (url, options, retries = 3) => {
+                for (let i = 0; i < retries; i++) {
+                    try {
+                        const response = await fetch(url, options);
+                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                        return response;
+                    } catch (error) {
+                        if (i === retries - 1) {
+                            console.error("LLM API call failed after all retries:", error);
+                            throw error;
+                        }
+                        const delay = Math.pow(2, i) * 1000;
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            };
+        });
+    </script>
 </body>
 </html>

@@ -198,7 +198,6 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="off" required>
             </div>
-            
             <button type="button" class="submit-btn">Login</button>
             
             <p class="forgot-password">
@@ -244,6 +243,11 @@
                 console.log(r)
                 window.location.href="dashboard.html/?t=t"
             })
+
+        
+        if (userType === 'teacher') {
+            body.classList.add('teacher-theme');
+            title.textContent = 'IISAQ Teacher Login';
         } else if (userType === 'student') {
             // Student theme is the default, but we set the title
             title.textContent = 'IISAQ Student Login';
@@ -255,7 +259,7 @@
                 console.log(inps.sid.value,inps.pwd.value)
                 localStorage.setItem("lcds?t=s",JSON.stringify(r))
                 window.location.href="dashboard.html/?t=s"
-            })        
+            })
         } else {
             // --- ERROR & REDIRECT LOGIC ---
             body.classList.add('error-theme');

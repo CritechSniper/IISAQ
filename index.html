@@ -179,6 +179,35 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--btn-hover-clr);
         }
+        .menu{
+            width: auto;
+            height: auto;
+            background-color: var(--hover-clr);
+            color: var(--secondary-text-clr);
+            border: 1px solid var(--line-clr);
+            /* box-shadow: 2px 2px 2px #999; */
+            border-radius: 0.2rem;
+            list-style: none;
+            position: fixed;
+            z-index: 1000;
+        }
+        .menu.off{
+            top: -200%;
+            left: -200%;
+        }
+        .menu-item{
+            height: 1.5rem;
+            line-height: 1.5rem;
+            font-size: 1rem;
+            /* font-weight: 500; */
+            margin: 10px 10px;
+            cursor: pointer;
+        }
+        .menu-item:hover,
+        .menu-item:active{
+            color: var(--text-clr);
+            /* font-weight: 500; */
+        }
     </style>
 </head>
 <body>
@@ -213,7 +242,7 @@
     </header>
     
     <main>
-        <section class="hero-bg h-[90vh] flex items-center justify-center text-center relative">
+        <section class="hero-bg h-[90vh] flex items-center justify-center text-center relative noCon">
             <div class="absolute inset-0 bg-base/60 backdrop-brightness-75"></div>
             
             <div class="z-10 max-w-4xl px-4">
@@ -224,7 +253,7 @@
                     Centralize, organize, and submit all your academic tasks effortlessly. Focus on learning, we'll handle the logistics.
                 </p>
                 <div class="space-x-4">
-                    <button class="btn-cta-primary" onclick="window.location.href = `/login.html`">
+                    <button class="btn-cta-primary" onclick="window.location.href = `/login.html?type=student`;">
                         Log in as Student
                     </button>
                     <a href="#features" class="btn-secondary">
@@ -267,7 +296,8 @@
             <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-bold text-center mb-4 text-text">Meet the Team 🤝</h2>
                 <p class="text-lg text-secondary mb-16">
-                    Meet the people who make it work.
+                    Meet the people who make it work.<br>
+                    "If ya can't say IISAQ, then just say Isaac Newton *in your head, dont embarrass us*"
                 </p>
 
                 <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-12">
@@ -299,5 +329,60 @@
         </div>
     </footer>
 
+    <ul class="menu">
+        <li class="menu-item" id="defText">Haha</li>
+        <li class="menu-item" id="reload">Reload</li>
+        <li class="menu-item" id="stLog">Quick St. Login</li>
+        <li class="menu-item" id="teLog">Quick Te. Login</li>
+    </ul>
+    <sdcript>
+        let menu = null;
+        document.addEventListener('DOMContentLoaded', function(){
+            //make sure the right click menu is hidden
+            menu = document.querySelector('.menu');
+            menu.classList.add('off');
+            
+            //add the right click listener to the box
+            // let box = document.getElementById('box');--------
+            document.addEventListener('contextmenu', showmenu);
+            const noConElements = document.querySelectorAll('.noCon');
+        
+            noConElements.forEach(element => {
+                element.addEventListener('contextmenu', (e) => { // 'e' is the event object
+                    e.preventDefault(); // 1. Stop the default browser menu
+                    hidemenu();         // 2. Hide the custom menu (in case it was open)
+                });
+            });           
+            //add a listener for leaving the menu and hiding it
+            menu.addEventListener('mouseleave', hidemenu);
+            
+            //add the listeners for the menu items
+            addMenuListeners();
+        });
+        
+        function addMenuListeners(){
+            document.getElementById('defText').addEventListener('click', hidemenu);
+            document.getElementById('reload').addEventListener('click', ()=>{hidemenu();location.reload();});
+            document.getElementById('stLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=student`;});
+            document.getElementById('teLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=teacher`;});
+        }
+        
+        function showmenu(ev){
+            //stop the real right click menu
+            ev.preventDefault(); 
+            //show the custom menu
+            console.log( ev.clientX, ev.clientY );
+            menu.style.top = `${ev.clientY}px`;
+            menu.style.left = `${ev.clientX}px`;
+            menu.classList.remove('off');
+        }
+        
+        function hidemenu(ev){
+            menu.classList.add('off');
+            menu.style.top = '-200%';
+            menu.style.left = '-200%';
+        }
+    </script>
+    <script src="contextmenu.js"></script>
 </body>
 </html>
