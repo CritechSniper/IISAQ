@@ -335,6 +335,54 @@
         <li class="menu-item" id="stLog">Quick St. Login</li>
         <li class="menu-item" id="teLog">Quick Te. Login</li>
     </ul>
+    <script>
+        let menu = null;
+        document.addEventListener('DOMContentLoaded', function(){
+            //make sure the right click menu is hidden
+            menu = document.querySelector('.menu');
+            menu.classList.add('off');
+            
+            //add the right click listener to the box
+            // let box = document.getElementById('box');--------
+            document.addEventListener('contextmenu', showmenu);
+            const noConElements = document.querySelectorAll('.noCon');
+        
+            noConElements.forEach(element => {
+                element.addEventListener('contextmenu', (e) => { // 'e' is the event object
+                    e.preventDefault(); // 1. Stop the default browser menu
+                    hidemenu();         // 2. Hide the custom menu (in case it was open)
+                });
+            });           
+            //add a listener for leaving the menu and hiding it
+            menu.addEventListener('mouseleave', hidemenu);
+            
+            //add the listeners for the menu items
+            addMenuListeners();
+        });
+        
+        function addMenuListeners(){
+            document.getElementById('defText').addEventListener('click', hidemenu);
+            document.getElementById('reload').addEventListener('click', ()=>{hidemenu();location.reload();});
+            document.getElementById('stLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=student`;});
+            document.getElementById('teLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=teacher`;});
+        }
+        
+        function showmenu(ev){
+            //stop the real right click menu
+            ev.preventDefault(); 
+            //show the custom menu
+            console.log( ev.clientX, ev.clientY );
+            menu.style.top = `${ev.clientY}px`;
+            menu.style.left = `${ev.clientX}px`;
+            menu.classList.remove('off');
+        }
+        
+        function hidemenu(ev){
+            menu.classList.add('off');
+            menu.style.top = '-200%';
+            menu.style.left = '-200%';
+        }
+    </script>
     <script src="contextmenu.js"></script>
 </body>
 </html>
