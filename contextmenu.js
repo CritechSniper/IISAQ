@@ -84,10 +84,10 @@ function addMenuListeners(){
     if(reload) reload.addEventListener('click', ()=>{hidemenu();location.reload();});
 
     const stLog = document.getElementById('stLog');
-    if(stLog) stLog.addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=student`;});
+    if(stLog) stLog.addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?t=s`;});
 
     const teLog = document.getElementById('teLog');
-    if(teLog) teLog.addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=teacher`;});
+    if(teLog) teLog.addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?t=t`;});
 }
 
 function showmenu(ev){

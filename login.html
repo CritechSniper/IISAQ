@@ -211,7 +211,7 @@
         // --- JAVASCRIPT LOGIC ---
         
         const urlParams = new URLSearchParams(window.location.search);
-        const userType = urlParams.get('type');
+        const userType = urlParams.get('t');
         const body = document.body;
         const title = document.getElementById('page-title');
         const errorMessage = document.getElementById('error-message');
@@ -224,12 +224,12 @@
         }
         window.onload = () => {
            if(localStorage.getItem("lcds?t=s")&&userType==="student") {
-                window.location.href="dashboard.html?t=s"
+                window.location.href="stu/index.html"
                 console.log("Student id detected!")
            } 
            if (localStorage.getItem("lcds?t=t")&&userType==="teacher"){
                 console.log("Teacher id detected!")
-                window.location.href="dashboard.html?t=t"
+                window.location.href="teac/index.html"
            } else {console.log("Logging in...")}
         }
         if (userType === 'teacher') {
@@ -241,7 +241,7 @@
                 alert("Login success!");
                 localStorage.setItem("lcds?t=t",JSON.stringify(r))
                 console.log(r)
-                window.location.href="dashboard.html/?t=t"
+                window.location.href="teac/index.html"
             })
 
         }else if (userType === 'student') {
@@ -254,7 +254,7 @@
                 alert("Login success!");
                 console.log(inps.sid.value,inps.pwd.value)
                 localStorage.setItem("lcds?t=s",JSON.stringify(r))
-                window.location.href="dashboard.html/?t=s"
+                window.location.href="stu/index.html"
             })
         } else {
             // --- ERROR & REDIRECT LOGIC ---

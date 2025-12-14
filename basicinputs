@@ -1,0 +1,11 @@
+Teachers-
+<script src="accessVer/teac.js"></script>
+<script src="accessVer/Mac.js"></script>
+
+Students-
+<script src="accessVer/stu.js"></script>
+<script src="accessVer/Mac.js"></script>
+
+Accross-
+<script src="accessVer/Mac.js"></script>
+<script src="contextmenu.js"></script>
