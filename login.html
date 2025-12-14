@@ -227,16 +227,16 @@
             pwd: document.querySelector("#password")
         }
         window.onload = () => {
-            if (localStorage.getItem("lcds?t=s") && userType === "student") {
+            if (localStorage.getItem("lcds?t=s") && userType === "s") {
                 window.location.href = "stu/index.html"
                 console.log("Student id detected!")
             }
-            if (localStorage.getItem("lcds?t=t") && userType === "teacher") {
+            if (localStorage.getItem("lcds?t=t") && userType === "t") {
                 console.log("Teacher id detected!")
                 window.location.href = "teac/index.html"
             } else { console.log("Logging in...") }
         }
-        if (userType === 'teacher') {
+        if (userType === 't') {
             body.classList.add('teacher-theme');
             title.textContent = 'IISAQ Teacher Login';
             document.querySelector(".submit-btn").addEventListener("click", async (e) => {
@@ -248,7 +248,7 @@
                 window.location.href = "teac/index.html"
             })
 
-        } else if (userType === 'student') {
+        } else if (userType === 's') {
             // Student theme is the default, but we set the title
             title.textContent = 'IISAQ Student Login';
             body.classList.add('student-theme');
