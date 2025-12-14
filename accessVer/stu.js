@@ -1,4 +1,4 @@
-const AUTH_KEY = "stuA"; 
+const AUTH_KEY = "lcds?t=s"; 
 const REDIRECT_DELAY_MS = 10000;
 const REDIRECT_URL = "../index.html";
 

@@ -1,4 +1,4 @@
-const AUTH_KEY = "teacA";
+const AUTH_KEY = "lcds?t=t";
 const REDIRECT_DELAY_MS = 10000;
 const REDIRECT_URL = "../index.html";
 

@@ -228,14 +228,16 @@
         }
         window.onload = () => {
             if (localStorage.getItem("lcds?t=s") && userType === "s") {
-                window.location.href = "stu/index.html"
-                console.log("Student id detected!")
+                window.location.href = "stu/index.html";
+                console.log("Student id detected!");
+            } else if (localStorage.getItem("lcds?t=t") && userType === "t") {
+                console.log("Teacher id detected!");
+                window.location.href = "teac/index.html";
+            } else {
+                console.log("Logging in...");
             }
-            if (localStorage.getItem("lcds?t=t") && userType === "t") {
-                console.log("Teacher id detected!")
-                window.location.href = "teac/index.html"
-            } else { console.log("Logging in...") }
-        }
+        };
+
         if (userType === 't') {
             body.classList.add('teacher-theme');
             title.textContent = 'IISAQ Teacher Login';
