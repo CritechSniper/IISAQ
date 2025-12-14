@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,8 @@
             --line-clr: #42434a;
             --hover-clr: #222533;
             --text-clr: #e6e6ef;
-            --acent-clr: #5e63ff; /* Student Accent (Default) */
+            --acent-clr: #5e63ff;
+            /* Student Accent (Default) */
             --secondary-text-clr: #b0b3c1;
             --btn-clr: hsl(240, 100%, 70%);
             --btn-hover-clr: hsl(240, 100%, 75%);
@@ -32,10 +34,10 @@
 
         /* Teacher Theme: Overrides the dynamic variables */
         .teacher-theme {
-            --teacher-accent-clr: #00b894; 
+            --teacher-accent-clr: #00b894;
             --current-accent: var(--teacher-accent-clr);
             --current-btn-clr: var(--teacher-accent-clr);
-            --current-btn-hover-clr: #00c9a2; 
+            --current-btn-hover-clr: #00c9a2;
         }
 
         /* Error Theme: For missing user type */
@@ -64,7 +66,7 @@
         }
 
         .login-container {
-            background-color: var(--hover-clr); 
+            background-color: var(--hover-clr);
             padding: 40px;
             border-radius: 12px;
             width: 100%;
@@ -84,7 +86,7 @@
             margin-bottom: 30px;
             font-size: 2em;
             font-weight: 700;
-            color: var(--current-accent); 
+            color: var(--current-accent);
             transition: color 0.3s ease;
         }
 
@@ -92,7 +94,7 @@
 
         .login-form {
             /* Initially visible */
-            display: block; 
+            display: block;
         }
 
         .input-group {
@@ -133,8 +135,8 @@
             font-size: 1.1em;
             font-weight: 600;
             cursor: pointer;
-            color: var(--text-clr); 
-            background-color: var(--current-btn-clr); 
+            color: var(--text-clr);
+            background-color: var(--current-btn-clr);
             transition: background-color 0.3s ease, transform 0.1s ease;
             margin-top: 10px;
         }
@@ -165,9 +167,9 @@
             font-size: 1.1em;
             color: var(--error-clr);
             /* Initially hidden */
-            display: none; 
+            display: none;
         }
-        
+
         #countdown {
             font-weight: 700;
             margin-left: 5px;
@@ -179,10 +181,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <h1 id="page-title">IISAQ Login</h1>
-        
+
         <div id="error-message">
             <p>Error: User type not specified.</p>
             <p>Redirecting to home in <span id="countdown">5</span> seconds...</p>
@@ -193,13 +196,14 @@
                 <label for="email">Email</label>
                 <input type="text" id="email" name="email" placeholder="Enter your email" autocomplete="off" required>
             </div>
-            
+
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="off" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password"
+                    autocomplete="off" required>
             </div>
             <button type="button" class="submit-btn">Login</button>
-            
+
             <p class="forgot-password">
                 <a href="#">Forgot Password?</a>
             </p>
@@ -209,7 +213,7 @@
     <script type="module">
         import { tl } from "./login/login.js"
         // --- JAVASCRIPT LOGIC ---
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const userType = urlParams.get('t');
         const body = document.body;
@@ -218,43 +222,43 @@
         const countdownElement = document.getElementById('countdown');
         const redirectDelay = 5; // seconds
         const homeURL = "/"; // Define your actual home page URL
-        const inps ={
+        const inps = {
             sid: document.querySelector("#email"),
             pwd: document.querySelector("#password")
         }
         window.onload = () => {
-           if(localStorage.getItem("lcds?t=s")&&userType==="student") {
-                window.location.href="stu/index.html"
+            if (localStorage.getItem("lcds?t=s") && userType === "student") {
+                window.location.href = "stu/index.html"
                 console.log("Student id detected!")
-           } 
-           if (localStorage.getItem("lcds?t=t")&&userType==="teacher"){
+            }
+            if (localStorage.getItem("lcds?t=t") && userType === "teacher") {
                 console.log("Teacher id detected!")
-                window.location.href="teac/index.html"
-           } else {console.log("Logging in...")}
+                window.location.href = "teac/index.html"
+            } else { console.log("Logging in...") }
         }
         if (userType === 'teacher') {
             body.classList.add('teacher-theme');
             title.textContent = 'IISAQ Teacher Login';
-            document.querySelector(".submit-btn").addEventListener("click",async (e)=>{
-                const r=await tl("teach",inps.sid.value,inps.pwd.value)
-                if (r.status==="Fail") return alert("Failed login");
+            document.querySelector(".submit-btn").addEventListener("click", async (e) => {
+                const r = await tl("teach", inps.sid.value, inps.pwd.value)
+                if (r.status === "Fail") return alert("Failed login");
                 alert("Login success!");
-                localStorage.setItem("lcds?t=t",JSON.stringify(r))
+                localStorage.setItem("lcds?t=t", JSON.stringify(r))
                 console.log(r)
-                window.location.href="teac/index.html"
+                window.location.href = "teac/index.html"
             })
 
-        }else if (userType === 'student') {
+        } else if (userType === 'student') {
             // Student theme is the default, but we set the title
             title.textContent = 'IISAQ Student Login';
             body.classList.add('student-theme');
-                document.querySelector(".submit-btn").addEventListener("click",async (e)=>{
-                const r=await tl("stud",inps.sid.value,inps.pwd.value)
-                if (r.status==="Fail") return alert("Failed login");
+            document.querySelector(".submit-btn").addEventListener("click", async (e) => {
+                const r = await tl("stud", inps.sid.value, inps.pwd.value)
+                if (r.status === "Fail") return alert("Failed login");
                 alert("Login success!");
-                console.log(inps.sid.value,inps.pwd.value)
-                localStorage.setItem("lcds?t=s",JSON.stringify(r))
-                window.location.href="stu/index.html"
+                console.log(inps.sid.value, inps.pwd.value)
+                localStorage.setItem("lcds?t=s", JSON.stringify(r))
+                window.location.href = "stu/index.html"
             })
         } else {
             // --- ERROR & REDIRECT LOGIC ---
@@ -272,11 +276,12 @@
                 if (remainingTime <= 0) {
                     clearInterval(interval);
                     // Redirect after countdown
-                    window.location.href = homeURL; 
+                    window.location.href = homeURL;
                 }
             }, 1000);
         }
     </script>
 
 </body>
+
 </html>
