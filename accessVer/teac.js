@@ -6,7 +6,7 @@ let warnbox = document.getElementById("warnbox");
 let blurOverlay = document.getElementById("blur-overlay");
 let warnsubtext = document.getElementById("warnsubtext");
 let countdownEl = document.getElementById("countdown");
-
+const insts = document.getElementById("instn");
 function startRedirectSequence() {
     if (!warnbox) {
         console.error("Warnbox element not found. Redirecting without warning.");
@@ -38,9 +38,10 @@ function startRedirectSequence() {
         }
     }, 1000);
 }
-
 const authCheck = localStorage.getItem(AUTH_KEY);
-
 if (!authCheck) {
     startRedirectSequence();
+}
+if (insts) {
+    insts.innerHTML=`${JSON.parse(authCheck).data.name.charAt(0).toUpperCase()+JSON.parse(authCheck).data.name.slice(1)}`
 }

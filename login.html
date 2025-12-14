@@ -182,7 +182,7 @@
     </style>
 </head>
 
-<body>
+<body class="antialised">
     <div class="login-container">
         <h1 id="page-title">IISAQ Login</h1>
 
@@ -226,6 +226,7 @@
             sid: document.querySelector("#email"),
             pwd: document.querySelector("#password")
         }
+        const sbtn = document.querySelector(".submit-btn");
         window.onload = () => {
             if (localStorage.getItem("lcds?t=s") && userType === "s") {
                 window.location.href = "stu/index.html";
@@ -242,8 +243,12 @@
             body.classList.add('teacher-theme');
             title.textContent = 'IISAQ Teacher Login';
             document.querySelector(".submit-btn").addEventListener("click", async (e) => {
+                sbtn.disabled = true;
                 const r = await tl("teach", inps.sid.value, inps.pwd.value)
-                if (r.status === "Fail") return alert("Failed login");
+                if (r.status === "Fail") {
+                    sbtn.disabled = false;
+                    return alert("Failed login!")
+                };
                 alert("Login success!");
                 localStorage.setItem("lcds?t=t", JSON.stringify(r))
                 console.log(r)
@@ -255,8 +260,12 @@
             title.textContent = 'IISAQ Student Login';
             body.classList.add('student-theme');
             document.querySelector(".submit-btn").addEventListener("click", async (e) => {
+                sbtn.disabled = true;
                 const r = await tl("stud", inps.sid.value, inps.pwd.value)
-                if (r.status === "Fail") return alert("Failed login");
+                if (r.status === "Fail") {
+                    sbtn.disabled = false;
+                    return alert("Failed login!")
+                };
                 alert("Login success!");
                 console.log(inps.sid.value, inps.pwd.value)
                 localStorage.setItem("lcds?t=s", JSON.stringify(r))
