@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lookup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        html { margin: 2%; }
+        p { margin: 0; }
+
+        body {
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .mainH, .searchCon, .area {
+            background-color: var(--hover-clr);
+            border: 1px solid var(--line-clr);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .mainH { margin: 0 0 20px 0; }
+
+        .searchCon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .searchCon input {
+            padding: 8px;
+            border: 1px solid var(--line-clr);
+            border-radius: 4px;
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+        }
+
+        .searchCon input:focus {
+            outline: none;
+            border-color: var(--acent-clr);
+        }
+
+        .searchCon button {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 10px;
+            background-color: var(--btn-clr);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .searchCon button:hover { background-color: var(--btn-hover-clr); }
+
+        .area {
+            border-radius: 10px;
+            display: none;
+        }
+
+        .area li, .area p { font-weight: bold; }
+        .area span { font-weight: normal; }
+
+        #failMessage, #customMessage { display: none; }
+    </style>
+</head>
+
+<body>
+    <h1 class="mainH">Student Lookup-</h1>
+    <div class="searchCon">
+        <p>◉ St. Name/ID</p>
+        <input type="text" id="searchInput" placeholder="Enter student name or ID">
+        <button id="onSearch">Search...</button>
+    </div>
+    <div class="result">
+        <p id="failMessage">No student found.</p>
+        <p id="customMessage"></p>
+        <div class="area" id="resultArea">
+            <p>Name: <span></span></p>
+            <p>ID: <span></span></p>
+            <p>Grade: <span></span></p>
+            <p>Section: <span></span></p>
+            <div id="markPrev">         <p>Submissions-<span></span></p>
+                <ul>
+                    <li>Name of Assign: <span></span></li>
+                    <li>Score/Total: <span></span></li>
+                    <li>Date submitted: <span></span></li>
+                </ul>
+                <hr>
+                <ul>
+                    <li>Name of Assign: <span></span></li>
+                    <li>Score/Total: <span></span></li>
+                    <li>Date submitted: <span></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        const input = document.getElementById('searchInput');
+        const button = document.getElementById('onSearch');
+        const failMessage = document.getElementById('failMessage');
+        const customMessage = document.getElementById('customMessage');
+        const resultArea = document.getElementById('resultArea');
+
+        input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                button.click();
+            }
+        });
+
+        button.addEventListener('click', () => {
+            resultArea.style.display = 'none';
+            failMessage.style.display = 'none';
+            customMessage.style.display = 'none';
+            console.log('Searching for:', input.value);
+            initiateLookup(inut.value);
+        });
+    </script>
+</body>
+
+</html>
