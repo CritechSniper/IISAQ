@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AssignHub - Your Academic Success Partner</title>
+    <title>IISAQ</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -29,13 +29,12 @@
         }
 
         .hero-bg {
-            /* Using a new image with the accent color background for better look */
             background-image: url('https://placehold.co/1920x1080/0e1017/5e63ff?text=.+.+.');
             background-size: cover;
             background-position: center;
         }
 
-        /* 3. Custom Utility Color Classes (Replacing inline Tailwind color utilities) */
+        /* replacing tailwind */
         .bg-base { background-color: var(--base-clr); }
         .bg-accent { background-color: var(--acent-clr); }
         .bg-hover { background-color: var(--hover-clr); }
@@ -44,9 +43,6 @@
         .text-accent { color: var(--acent-clr); }
         .text-secondary { color: var(--secondary-text-clr); }
         
-        /* 4. Custom Component Styles */
-
-        /* Header & Navigation Styles */
         .main-header {
             position: sticky;
             top: 0;
@@ -64,10 +60,8 @@
             color: var(--text-clr);
         }
         
-        /* Dropdown Fix */
         .dropdown-container {
             position: relative;
-            /* Fixes the hover gap */
             padding-bottom: 5px; 
         }
 
@@ -109,7 +103,6 @@
             color: var(--text-clr);
         }
         
-        /* Login Button Style */
         .btn-login {
             padding: 0.5rem 1rem; 
             background-color: var(--acent-clr);
@@ -123,7 +116,6 @@
             background-color: var(--btn-hover-clr);
         }
         
-        /* Secondary Button Style (e.g., Explore Features) */
         .btn-secondary {
             padding: 0.75rem 2rem;
             border: 1px solid var(--secondary-text-clr);
@@ -136,7 +128,6 @@
             background-color: var(--hover-clr);
         }
         
-        /* Primary CTA Button (Hero/Sign Up) */
         .btn-cta-primary {
             padding: 0.75rem 2rem;
             background-color: var(--acent-clr);
@@ -151,7 +142,6 @@
             transform: scale(1.05);
         }
 
-        /* Feature Card Style */
         .feature-card {
             background-color: var(--hover-clr);
             padding: 2rem;
@@ -165,7 +155,6 @@
             transform: scale(1.02); 
         }
         
-        /* Scrollbar Styling - KEPT */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -363,8 +352,8 @@
         function addMenuListeners(){
             document.getElementById('defText').addEventListener('click', hidemenu);
             document.getElementById('reload').addEventListener('click', ()=>{hidemenu();location.reload();});
-            document.getElementById('stLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=student`;});
-            document.getElementById('teLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?type=teacher`;});
+            document.getElementById('stLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?t=s`;});
+            document.getElementById('teLog').addEventListener('click', ()=>{hidemenu();window.location.href = `/login.html?t=t`;});
         }
         
         function showmenu(ev){
