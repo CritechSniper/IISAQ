@@ -184,8 +184,9 @@
 
 <body class="antialised">
     <div class="login-container">
-        <h1 id="page-title">IISAQ Login</h1>
 
+        <h1 id="page-title">IISAQ Login</h1>
+        <div id="hrts" style="font-size: 40px;text-align: center;">💓💓💓💓💓</div>
         <div id="error-message">
             <p>Error: User type not specified.</p>
             <p>Redirecting to home in <span id="countdown">5</span> seconds...</p>
@@ -205,7 +206,7 @@
             <button type="button" class="submit-btn">Login</button>
 
             <p class="forgot-password">
-                <a href="#">Forgot Password?</a>
+                <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMVVvdtWgfvJmPkwbSbJbjDghjSRkpchlXfWztpKxXTwqdFpMWJwCvZjrbScGHwfSKSDtsv" target="_blank" rel="noopener">Forgot Password?</a>
             </p>
         </form>
     </div>
@@ -220,6 +221,7 @@
         const title = document.getElementById('page-title');
         const errorMessage = document.getElementById('error-message');
         const countdownElement = document.getElementById('countdown');
+        let ast=0;
         const redirectDelay = 5; // seconds
         const homeURL = "/"; // Define your actual home page URL
         const inps = {
@@ -238,6 +240,11 @@
                 console.log("Logging in...");
             }
         };
+        document.getElementById("password").addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                sbtn.click();
+            }
+        });
 
         if (userType === 't') {
             body.classList.add('teacher-theme');
@@ -247,6 +254,15 @@
                 const r = await tl("teach", inps.sid.value, inps.pwd.value)
                 if (r.status === "Fail") {
                     sbtn.disabled = false;
+                    ast++
+                    const atel = document.getElementById("hrts");
+                    atel.innerHTML='';
+                    for (let index = 0; index < ast; index++) {
+                        atel.innerText+='💔'
+                    }
+                    for (let index=0; index < 5-ast; index++) {
+                        atel.innerText+='💓'
+                    }
                     return alert("Failed login!")
                 };
                 alert("Login success!");
@@ -286,7 +302,6 @@
 
                 if (remainingTime <= 0) {
                     clearInterval(interval);
-                    // Redirect after countdown
                     window.location.href = homeURL;
                 }
             }, 1000);
