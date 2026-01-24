@@ -1,0 +1,297 @@
+/* 1. CSS Variables (The Root) - KEPT */
+:root {
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #222533;
+  --text-clr: #e6e6ef;
+  --acent-clr: #5e63ff;
+  --secondary-text-clr: #b0b3c1;
+  --btn-hover-clr: hsl(240, 100%, 75%);
+  --btn-clr: hsl(240, 100%, 70%);
+}
+
+/* 2. Base & Utility Styles */
+body {
+  background-color: var(--base-clr);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-clr);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero-bg {
+  background-image: url('https://placehold.co/1920x1080/0e1017/5e63ff?text=.+.+.');
+  background-size: cover;
+  background-position: center;
+}
+
+/* replacing tailwind */
+.bg-base {
+  background-color: var(--base-clr);
+}
+
+.bg-accent {
+  background-color: var(--acent-clr);
+}
+
+.bg-hover {
+  background-color: var(--hover-clr);
+}
+
+.border-line {
+  border-color: var(--line-clr);
+}
+
+.text-text {
+  color: var(--text-clr);
+}
+
+.text-accent {
+  color: var(--acent-clr);
+}
+
+.text-secondary {
+  color: var(--secondary-text-clr);
+}
+
+.main-header {
+  position: sticky;
+  top: 0;
+  background-color: color-mix(in srgb, var(--base-clr) 90%, transparent);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  border-bottom: 1px solid var(--line-clr);
+}
+
+.nav-link {
+  color: var(--secondary-text-clr);
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--text-clr);
+}
+
+.dropdown-container {
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 150px;
+  background-color: var(--hover-clr);
+  border: 1px solid var(--line-clr);
+  border-radius: 0.5rem;
+  margin-top: 0;
+  /* Ensures connection */
+  padding: 0.5rem 0;
+  z-index: 60;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.dropdown-container:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--secondary-text-clr);
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--acent-clr);
+  color: var(--text-clr);
+}
+
+.btn-login {
+  padding: 0.5rem 1rem;
+  background-color: var(--acent-clr);
+  color: var(--text-clr);
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 10px color-mix(in srgb, var(--acent-clr) 50%, transparent);
+  transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+  background-color: var(--btn-hover-clr);
+}
+
+.btn-secondary {
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--secondary-text-clr);
+  color: var(--secondary-text-clr);
+  font-weight: 500;
+  border-radius: 0.75rem;
+  transition: background-color 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover-clr);
+}
+
+.btn-cta-primary {
+  padding: 0.75rem 2rem;
+  background-color: var(--acent-clr);
+  color: var(--text-clr);
+  font-weight: bold;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--acent-clr) 50%, transparent);
+  transition: all 0.3s;
+}
+
+.btn-cta-primary:hover {
+  background-color: var(--btn-hover-clr);
+  transform: scale(1.05);
+}
+
+.feature-card {
+  background-color: var(--hover-clr);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--line-clr);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--acent-clr) 30%, transparent), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--base-clr);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--acent-clr);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--btn-hover-clr);
+}
+
+.menu {
+  width: auto;
+  height: auto;
+  background-color: var(--hover-clr);
+  color: var(--secondary-text-clr);
+  border: 1px solid var(--line-clr);
+  /* box-shadow: 2px 2px 2px #999; */
+  border-radius: 0.2rem;
+  list-style: none;
+  position: fixed;
+  z-index: 1000;
+}
+
+.menu.off {
+  top: -200%;
+  left: -200%;
+}
+
+.menu-item {
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  /* font-weight: 500; */
+  margin: 10px 10px;
+  cursor: pointer;
+}
+
+.menu-item:hover,
+.menu-item:active {
+  color: var(--text-clr);
+  /* font-weight: 500; */
+}
+
+.team-members {
+  gap: 3rem;
+}
+
+.team-member {
+  background-color: var(--hover-clr);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--line-clr);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.team-member:hover {
+  box-shadow: 0 10px 15px -3px color-mix(in srgb, var(--acent-clr) 30%, transparent), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.team-member:last-child {
+  z-index: 1000;
+}
+
+.team-member:last-child:hover {
+  background-color: whitesmoke;
+}
+
+body:has(.team-member:last-child:hover) .overlay {
+  animation: abulqasimOP 4s forwards;
+}
+
+body:has(.team-member:last-child:hover) .overlayText {
+  animation: abulqasimText 2s forwards;
+  animation-delay: 4s;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.overlayText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: transparent;
+}
+
+@keyframes abulqasimOP {
+  0% {
+    background-color: transparent;
+  }
+
+  100% {
+    background-color: white;
+  }
+}
+
+@keyframes abulqasimText {
+  0% {
+    color: transparent;
+  }
+
+  100% {
+    color: black;
+  }
+}
