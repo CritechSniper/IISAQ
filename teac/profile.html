@@ -1,203 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Teacher Profile - Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+  <script src="/al/main.js" defer></script>
+  <link rel="stylesheet" href="/S.css">
 
-        :root {
-          --base-clr: #11121a;
-          --line-clr: #42434a;
-          --hover-clr: #222533;
-          --text-clr: #e6e6ef;
-          --acent-clr: #5e63ff;
-          --secondary-text-clr: #b0b3c1;
-        }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-        body {
-          font-family: 'Poppins', sans-serif;
-          background-color: var(--base-clr);
-          color: white;
-          font-weight: bold;
-        }
+    :root {
+      --base-clr: #11121a;
+      --line-clr: #42434a;
+      --hover-clr: #222533;
+      --text-clr: #e6e6ef;
+      --acent-clr: #5e63ff;
+      --secondary-text-clr: #b0b3c1;
+    }
 
-        .dashboard-container {
-          background-color: var(--base-clr);
-          color: var(--text-clr);
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--base-clr);
+      color: var(--text-clr);
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+    }
 
-        .sidebar {
-          background-color: var(--hover-clr);
-          border-right: 1px solid var(--line-clr);
-        }
+    /* Main Content Area */
+    .main-content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
 
-        .card {
-          background-color: var(--hover-clr);
-          border: 1px solid var(--line-clr);
-          transition: transform 0.2s, box-shadow 0.2s;
-        }
+    /* Proper Profile Card instead of Warnbox */
+    .profile-card {
+      background-color: var(--hover-clr);
+      border: 1px solid var(--line-clr);
+      border-radius: 16px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
 
-        .card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+    .profile-header {
+      color: var(--acent-clr);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line-clr);
+      padding-bottom: 0.5rem;
+    }
 
-        .sidebar-item-active {
-          background-color: var(--base-clr);
-          border-left: 4px solid var(--acent-clr);
-          color: var(--acent-clr);
-        }
+    .info-group {
+      margin-bottom: 1rem;
+    }
 
-        .action-link {
-          text-decoration: none;
-          display: block;
-          height: 100%;
-          /* Ensures the clickable area covers the whole card */
-        }
+    .info-label {
+      color: var(--secondary-text-clr);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-        #blur-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-          background-color: rgba(0, 0, 0, 0.4);
-          z-index: 999;
-          display: none;
-        }
+    .info-value {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
 
-        /* Core Warnbox Styles */
-        #warnbox {
-          -webkit-user-select: none;
-          user-select: none;
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background-color: var(--hover-clr);
-          border: 2px solid var(--acent-clr);
-          border-radius: 12px;
-          padding: 30px;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-          z-index: 1000;
-          /* Above the blur overlay */
-          text-align: center;
-          width: 300px;
-        }
+    details {
+      background: var(--base-clr);
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-        #warnbox h2 {
-          color: var(--acent-clr);
-          margin-top: 0;
-        }
+    summary {
+      font-weight: 600;
+      color: var(--acent-clr);
+    }
 
-        #warnbox p {
-          color: var(--secondary-text-clr);
-        }
+    .details-content {
+      padding-top: 10px;
+      font-size: 0.95rem;
+      color: var(--secondary-text-clr);
+    }
 
-        .timer-display {
-          font-weight: bold;
-          font-size: 1.1em;
-        }
+    .password-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      width: fit-content;
+    }
 
-        #countdown {
-          color: #ff4757;
-        }
-        #logout {
-          margin-top: 7px;
-        }
-    </style>
+    .toggle-eye {
+      background: none;
+      border: none;
+      color: var(--accent);
+      /* Uses your purple color */
+      font-size: 0.75rem;
+      font-weight: bold;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .toggle-eye:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body>
-  <aside id="sidebar" class="sidebar w-20 md:w-64 fixed h-full transition-all duration-300 p-4 z-10">
-      <div class="py-2 mb-8 flex items-center justify-center md:justify-start">
-          <svg class="w-8 h-8 text-[var(--acent-clr)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-              </path>
-          </svg>
-          <span class="ml-3 text-xl font-bold hidden md:inline">IISAQ <span
-                  class="text-xs font-light text-gray-400">Hub</span></span>
-      </div>
 
-      <nav class="space-y-4">
-        <a href="./index.html"
-              class="flex items-center p-3 rounded-xl hover:bg-[var(--line-clr)] text-[var(--secondary-text-clr)]">
-              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-              <span class="hidden md:inline">Teacher Launchpad</span>
-          </a>
-          <a href="./profile.html" class="sidebar-item-active flex items-center p-3 rounded-xl">
-              <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-              
-              <span class="hidden md:inline">My Profile</span>
-          </a>
+<body>
+  <nav id="sidebar" class="close">
+    <ul>
+      <li>
+        <span class="logo">Dashboard</span>
+        <button onclick="toggleSidebar()" id="toggle-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+            <path
+              d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+          </svg>
+        </button>
+      </li>
+      <li class="active">
+        <a href="profile.html">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+            <path
+              d="M480-480q-83 0-141.5-58.5T280-680q0-83 58.5-141.5T480-880q83 0 141.5 58.5T680-680q0 83-58.5 141.5T480-480Zm0 80q83 0 156 31.5t127 85.5q54 54 85.5 127T880-80H80q0-83 31.5-156t85.5-127q54-54 127-85.5T480-400Z" />
+          </svg>
+          <span>Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="index.html">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+            <path
+              d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+          </svg>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="/al/feedback.html">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+            <path
+              d="M240-400h122l200-200q9-9 13.5-20.5T580-643q0-11-5-21.5T562-684l-36-38q-9-9-20-13.5t-23-4.5q-11 0-22.5 4.5T440-722L240-522v122Zm280-243-37-37 37 37ZM300-460v-38l101-101 20 18 18 20-101 101h-38Zm121-121 18 20-38-38 20 18Zm26 181h273v-80H527l-80 80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
+          </svg>
+          <span>Feedback</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="main-content" id="app">
+  </main>
+
+  <script type="module">
+    // 1. Check for credentials immediately
+    const lcds = localStorage.getItem("lcds?t=t");
+
+    if (!lcds) {
+      window.location.href = "/index.html";
+    } else {
+      const parsed = JSON.parse(lcds);
+      const data = parsed.data;
+
+      if (!data) {
+        window.location.href = "/index.html";
+      } else {
+        renderProfile(data);
+      }
+    }
+
+    function renderProfile(data) {
+      const container = document.getElementById('app');
+      const subjectFormatted = data.subject.charAt(0).toUpperCase() + data.subject.slice(1);
+
+      container.innerHTML = `
+        <div class="profile-card">
+          <h2 class="profile-header">Teacher Profile</h2>
           
-      </nav>
-  </aside>
-</body>
-<script type="module">
-  const lcds = localStorage.getItem("lcds?t=t");
-  if(!lcds) {
-    window.location.href="../login.html?t=t"
-    alert("Redirecting to teacher login page...")
-  }
-  const data = JSON.parse(lcds).data
-  if(!data) {
-    window.location.href="../login.html?t=t"
-    alert("Redirecting to teacher login page due to missing credentials...")
-  }
-  console.log(data)
-  document.body.innerHTML+=`
-    <div id="warnbox">
-      <h2><b>Profile</b></h2>
-        <div>Name: ${data.name}</div><br>
-        <div>
-          <details>
-            <summary>Class Details</summary>
-            Grade: ${data.class.grade}<br>
-            Section: ${data.class.section}<br>
-            No.of Students: ${data.class.nstus}<br>
-          </details>
-        </div><br>
-        <div>Subject: ${data.subject.charAt(0).toUpperCase()+data.subject.slice(1)}</div><br>
-        <div>Password: ${data.password}</div>
-        <button
-            class="px-4 py-2 
-                  bg-red-600 
-                  text-white 
-                  font-semibold 
-                  rounded-md 
-                  shadow-sm 
-                  hover:bg-red-700 
-                  focus:outline-none 
-                  focus:ring-2 
-                  focus:ring-red-500 
-                  focus:ring-offset-2 
-                  transition-colors 
-                  duration-200
-                  "
-          id="logout">
+          <div class="info-group">
+            <div class="info-label">Full Name</div>
+            <div class="info-value">${data.name}</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Subject</div>
+            <div class="info-value">${subjectFormatted}</div>
+          </div>
+
+          <div class="info-group">
+            <details>
+              <summary>Class Details</summary>
+              <div class="details-content">
+                <strong>Grade:</strong> ${data.class.grade}<br>
+                <strong>Section:</strong> ${data.class.section}<br>
+                <strong>Students:</strong> ${data.class.nstus}
+              </div>
+            </details>
+          </div>
+
+          <div class="data-row">
+            <span class="data-label">Password</span>
+            <div class="password-wrapper">
+              <span id="pass-text" data-password="${data.password}">••••••••</span>
+              <button type="button" id="toggle-pass-btn" class="toggle-eye">Show</button>
+            </div>
+          </div>
+
+          <button id="logout-btn" class="w-full mt-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors duration-200">
             Log Out
           </button>
+        </div>
+      `;
 
-    </div>    
-  `
-  setTimeout(()=>{
-    document.getElementById("logout").addEventListener("click", (e)=>{
-      localStorage.removeItem("lcds?t=t");
-      alert("You have successfully logged out!");
-      window.location.href="../index.html"
-    })
-  })
-</script>
+      // Event Listener for Logout
+      document.getElementById("logout-btn").addEventListener("click", () => {
+        localStorage.removeItem("lcds?t=t");
+        window.location.href = "/index.html";
+      });
+    }
+    document.getElementById("toggle-pass-btn").addEventListener("click", function () {
+      const passText = document.getElementById("pass-text");
+      const actualPassword = passText.getAttribute("data-password");
+
+      if (passText.innerText === "••••••••") {
+        passText.innerText = actualPassword;
+        this.innerText = "Hide";
+      } else {
+        passText.innerText = "••••••••";
+        this.innerText = "Show";
+      }
+    });
+  </script>
+</body>
+
 </html>

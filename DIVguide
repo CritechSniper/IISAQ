@@ -1,0 +1,151 @@
+<main class="dashboard-card">
+  <header class="card-header">
+    <h2>Component Guide</h2>
+    <hr class="divider">
+  </header>
+
+  <div class="data-row">
+    <span class="data-label">Label (e.g., Full Name)</span>
+    <p class="data-value">John Doe</p>
+  </div>
+
+  <div class="data-row">
+    <span class="data-label">Security Status</span>
+    <p class="data-value highlight">Verified Account</p>
+  </div>
+
+  <details class="styled-details">
+    <summary>Click to Expand (e.g., Class Details)</summary>
+    <div class="details-body">
+      <p><strong>Sub-item:</strong> Data here</p>
+      <p><strong>Sub-item:</strong> Data here</p>
+    </div>
+  </details>
+
+  <div class="data-row mt-20">
+    <span class="data-label">Access Key</span>
+    <div class="value-secure">•••••••• <small>(Encrypted)</small></div>
+  </div>
+
+  <button class="btn-danger">Action Button</button>
+</main>
+
+<style>
+  /* ROOT VARIABLES - The 'Secret Sauce' for colors */
+  :root {
+    --base-dark: #11121a;
+    --card-bg: #222533;
+    --accent: #5e63ff;
+    --border: #42434a;
+    --text-primary: #e6e6ef;
+    --text-secondary: #b0b3c1;
+    --red-danger: #ff4757;
+  }
+
+  /* THE CONTAINER */
+  .dashboard-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 400px;
+    color: var(--text-primary);
+  }
+
+  /* 1. HEADER & HR */
+  .card-header h2 {
+    color: var(--accent);
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 15px 0;
+  }
+
+  /* 2 & 3. DATA ROWS & HIGHLIGHTS */
+  .data-row {
+    margin-bottom: 15px;
+  }
+
+  .data-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+  }
+
+  .data-value {
+    font-size: 1.1rem;
+    margin: 4px 0 0 0;
+  }
+
+  .highlight {
+    color: var(--accent);
+    /* This gives it that 'pop' */
+    font-weight: 600;
+  }
+
+  /* 4. THE BEAUTIFUL DETAILS (Dropdown) */
+  .styled-details {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .styled-details summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 500;
+    outline: none;
+  }
+
+  .details-body {
+    padding-top: 10px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  /* 5. SECURED TEXT */
+  .value-secure {
+    font-family: monospace;
+    background: #1a1c26;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .value-secure small {
+    color: #555;
+    margin-left: 8px;
+  }
+
+  /* 6. BUTTONS */
+  .btn-danger {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--red-danger);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .btn-danger:hover {
+    filter: brightness(1.1);
+    transform: scale(1.02);
+  }
+
+  /* HELPER */
+  .mt-20 {
+    margin-top: 20px;
+  }
+
+  </style
