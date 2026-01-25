@@ -197,7 +197,7 @@
         </main>
     </div>
 
-    
+
     <div id="blur-overlay" style="display: none;"></div>
 
     <div id="warnbox" style="display: none;">
@@ -243,9 +243,11 @@
         };
     });
     const ls = localStorage.getItem("lcds?t=s")
-    if (!ls) {window.location.href = "../login.html?t=s"}
+    if (!ls) { window.location.href = "../login.html?t=s" }
     const invEL = document.getElementById("username")
     console.log(ls)
     invEL.innerText = `${JSON.parse(ls).data.name}`
 </script>
+<script src="/accessVer/stu.js"></script>
+
 </html>

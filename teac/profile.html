@@ -7,7 +7,7 @@
   <title>Teacher Profile - Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="/al/main.js" defer></script>
-  <link rel="stylesheet" href="/S.css">
+  <link rel="stylesheet" href="/al/S.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
@@ -175,7 +175,7 @@
       const parsed = JSON.parse(lcds);
       const data = parsed.data;
       for (const d in data) {
-        if(!d)window.location.href = "/index.html";
+        if (!d) window.location.href = "/index.html";
       }
       if (!data) {
         window.location.href = "/index.html";
@@ -227,6 +227,7 @@
     }
 
   </script>
+  <script src="/accessVer/teac.js"></script>
 </body>
 
 </html>

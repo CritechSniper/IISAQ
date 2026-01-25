@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IISAQ - Assignments</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Custom Styles and Variables -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -34,18 +35,22 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             position: relative;
-            padding-left: 1rem; /* Space for the accent bar */
-            border-left: 4px solid var(--acent-clr); /* The accent bar */
+            padding-left: 1rem;
+            /* Space for the accent bar */
+            border-left: 4px solid var(--acent-clr);
+            /* The accent bar */
             margin-bottom: 1rem;
         }
 
         .assignsdiv:hover {
             background-color: var(--hover-clr);
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow on hover */
         }
     </style>
 </head>
+
 <body class="p-4 sm:p-8">
 
     <main class="max-w-4xl mx-auto">
@@ -58,12 +63,13 @@
 
             <!-- Example Assignment 1 -->
             <!-- Note: Added data-due-date for time calculation -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141242" data-due-date="2025-12-10T20:00:00">
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141242"
+                data-due-date="2025-12-10T20:00:00">
                 <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
-                    
+
                     <!-- Title (Col 1/2) -->
                     <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 1: Data Analysis Report</h2>
-                    
+
                     <!-- ID (Col 3) -->
                     <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
                         ¤ 141242
@@ -72,12 +78,15 @@
                     <!-- Due Date & Time Remaining (Col 4) -->
                     <div class="col-span-1 text-right md:text-left">
                         <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-10</p>
-                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141242">Calculating...</p>
+                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141242">Calculating...
+                        </p>
                     </div>
 
                     <!-- Start Button (Col 5) -->
                     <div class="flex justify-end col-span-1">
-                        <button class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md" data-id="141242">
+                        <button
+                            class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md"
+                            data-id="141242">
                             Start
                         </button>
                     </div>
@@ -85,12 +94,13 @@
             </div>
 
             <!-- Example Assignment 2 -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141243" data-due-date="2025-12-25T12:00:00">
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141243"
+                data-due-date="2025-12-25T12:00:00">
                 <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
-                    
+
                     <!-- Title (Col 1/2) -->
                     <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 2: Database Schema Design</h2>
-                    
+
                     <!-- ID (Col 3) -->
                     <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
                         ¤ 141243
@@ -99,25 +109,30 @@
                     <!-- Due Date & Time Remaining (Col 4) -->
                     <div class="col-span-1 text-right md:text-left">
                         <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-25</p>
-                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141243">Calculating...</p>
+                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141243">Calculating...
+                        </p>
                     </div>
 
                     <!-- Start Button (Col 5) -->
                     <div class="flex justify-end col-span-1">
-                        <button class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md" data-id="141243">
+                        <button
+                            class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md"
+                            data-id="141243">
                             Start
                         </button>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Example Assignment 3 (Past Due) -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141244" data-due-date="2025-11-15T23:59:00">
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141244"
+                data-due-date="2025-11-15T23:59:00">
                 <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
-                    
+
                     <!-- Title (Col 1/2) -->
-                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 3: Introduction to Project Mgmt</h2>
-                    
+                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 3: Introduction to Project Mgmt
+                    </h2>
+
                     <!-- ID (Col 3) -->
                     <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
                         ¤ 141244
@@ -131,7 +146,9 @@
 
                     <!-- Start Button (Col 5) -->
                     <div class="flex justify-end col-span-1">
-                        <button class="sb bg-gray-600 cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg opacity-50" data-id="141244" disabled>
+                        <button
+                            class="sb bg-gray-600 cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg opacity-50"
+                            data-id="141244" disabled>
                             Submitted
                         </button>
                     </div>
@@ -226,7 +243,7 @@
         // 3. Initialization
         document.addEventListener("DOMContentLoaded", () => {
             setupNavigation();
-            
+
             // Run time update immediately and then every second
             updateTimeRemaining();
             setInterval(updateTimeRemaining, 1000);
@@ -250,5 +267,7 @@
             };
         });
     </script>
+    <script src="/accessVer/stu.js"></script>
 </body>
+
 </html>
