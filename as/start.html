@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Start Assignment - IISAQ</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom Styles and Variables -->
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -29,8 +28,8 @@
             min-height: 100vh;
         }
 
-        /* Input styling to match the dark theme */
-        .themed-input, .themed-textarea {
+        .themed-input,
+        .themed-textarea {
             background-color: var(--base-clr);
             border: 1px solid var(--line-clr);
             color: var(--text-clr);
@@ -39,85 +38,168 @@
             transition: border-color 0.2s;
             width: 100%;
         }
-        .themed-input:focus, .themed-textarea:focus {
+
+        .themed-input:focus,
+        .themed-textarea:focus {
             outline: none;
             border-color: var(--acent-clr);
             box-shadow: 0 0 0 1px var(--acent-clr);
         }
 
-        /* Styling for question divs */
         .question-div {
             background-color: var(--hover-clr);
             border: 1px solid var(--line-clr);
             padding: 1.5rem;
             border-radius: 1rem;
         }
-        
-        /* Sticky Header for navigation and submission */
+
         .sticky-header {
             background-color: var(--hover-clr);
             border-bottom: 1px solid var(--line-clr);
             z-index: 20;
         }
+
+        @media print {
+
+            #assignment-header,
+            #identity-summary,
+            .no-print,
+            button,
+            a {
+                display: none !important;
+            }
+
+            body {
+                background-color: white !important;
+                color: black !important;
+                padding: 0 !important;
+            }
+
+            .max-w-4xl {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .border-l-4 {
+                border-color: #000 !important;
+                background-color: #f9f9f9 !important;
+                page-break-inside: avoid;
+                /* Prevents questions from splitting across pages */
+                margin-bottom: 1.5rem !important;
+            }
+
+            h2,
+            h3,
+            h4,
+            p {
+                color: black !important;
+            }
+
+            .print-only-header {
+                display: block !important;
+            }
+
+            .bg-\[var\(--hover-clr\)\] {
+                background-color: transparent !important;
+                border: 1px solid #ccc !important;
+            }
+
+            @page {
+                margin: 1.5cm;
+            }
+
+            #app-container,
+            main,
+            .question-div {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                float: none !important;
+                display: block !important;
+            }
+
+            .whitespace-pre-wrap {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                white-space: pre-wrap !important;
+            }
+
+            .question-div,
+            .answer-box {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
     </style>
 </head>
+
 <body class="p-0">
 
-    <!-- Global Container -->
     <div id="app-container" class="min-h-screen">
 
-        <!-- Assignment Header (Sticky) -->
         <header id="assignment-header" class="sticky top-0 sticky-header shadow-lg hidden">
             <div class="max-w-4xl mx-auto py-3 px-4 sm:px-0 flex justify-between items-center">
                 <div>
                     <h1 id="header-title" class="text-xl font-bold text-white truncate"></h1>
-                    <p id="header-id" class="text-xs text-[var(--secondary-text-clr)]"></p>
+                    <p id="header-meta" class="text-xs text-[var(--secondary-text-clr)]"></p>
                 </div>
-                
+
                 <div class="flex space-x-3 items-center">
-                    <button id="save-btn" class="text-[var(--secondary-text-clr)] hover:text-white text-sm font-medium transition-colors hidden sm:block">
+                    <button id="save-btn"
+                        class="text-[var(--secondary-text-clr)] hover:text-white text-sm font-medium transition-colors hidden sm:block">
                         Save Progress
                     </button>
-                    <button id="submit-btn" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-md transform hover:scale-[1.01] active:scale-[0.99]">
+                    <button id="submit-btn"
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors shadow-md transform hover:scale-[1.01] active:scale-[0.99]">
                         Submit Assignment
                     </button>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content Area -->
         <main class="max-w-4xl mx-auto p-4 sm:p-8 pt-6">
 
-            <!-- Loading/Error State -->
             <div id="initial-state" class="text-center py-20">
                 <div id="loading-state" class="text-[var(--secondary-text-clr)]">
-                    <svg class="animate-spin h-8 w-8 text-[var(--acent-clr)] mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg class="animate-spin h-8 w-8 text-[var(--acent-clr)] mx-auto mb-4"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                        </circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
                     </svg>
                     <p>Validating identity and loading assignment...</p>
                 </div>
 
-                <div id="error-state" class="hidden text-center py-16 bg-red-900 bg-opacity-30 rounded-xl border border-red-700 p-8">
-                    <h2 class="text-3xl font-bold text-red-400 mb-4">URL Validation Error</h2>
+                <div id="error-state"
+                    class="hidden text-center py-16 bg-red-900 bg-opacity-30 rounded-xl border border-red-700 p-8">
+                    <h2 class="text-3xl font-bold text-red-400 mb-4">Access Denied</h2>
                     <p class="text-lg text-red-300">
-                        The assignment could not be started. Missing required parameters (ID, Name, DOB, or Teacher) in the URL.
+                        We couldn't verify your session. This assignment must be started through the official dashboard.
                     </p>
                     <p class="mt-4 text-[var(--secondary-text-clr)]">
-                        Please go back to the <a href="assignments.html" class="text-[var(--acent-clr)] hover:underline">Assignments List</a> and start the assignment properly.
+                        Please return to the <a href="/stu/assigns.html"
+                            class="text-[var(--acent-clr)] hover:underline">Assignments List</a>.
                     </p>
                 </div>
             </div>
 
-
-            <!-- Assignment Content (Visible only on success) -->
             <div id="assignment-content" class="hidden">
-                
-                <!-- Identity Summary -->
-                <div id="identity-summary" class="bg-[var(--hover-clr)] p-4 rounded-xl mb-8 border border-[var(--line-clr)] shadow-inner">
+
+                <div id="identity-summary"
+                    class="bg-[var(--hover-clr)] p-4 rounded-xl mb-8 border border-[var(--line-clr)] shadow-inner">
                     <h3 class="text-lg font-semibold mb-2 flex items-center text-[var(--acent-clr)]">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Your Confirmed Identity
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 0a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        Session Identity
                     </h3>
                     <div class="text-sm space-y-1 text-[var(--secondary-text-clr)]">
                         <p><strong>Student:</strong> <span id="summary-name" class="text-white"></span></p>
@@ -127,26 +209,27 @@
                 </div>
 
                 <h2 class="text-2xl font-bold mb-6 border-b border-[var(--line-clr)] pb-3">Questions</h2>
-                
-                <!-- Question Form -->
+
                 <form id="question-form" class="space-y-8">
 
-                    <!-- QUESTION 1: Identify the Primary Keys (Short Answer List) -->
                     <div class="question-div" data-question-id="q1">
                         <div class="text-[var(--acent-clr)] font-bold mb-1">Question 1 (5 Points)</div>
                         <h3 class="text-xl font-semibold mb-4">Identify the Primary Keys</h3>
                         <p class="text-[var(--secondary-text-clr)] mb-4">
-                            For a new e-commerce schema with three main tables (Products, Customers, Orders), list the primary key you would assign to each table.
+                            For a new e-commerce schema with three main tables (Products, Customers, Orders), list the
+                            primary key you would assign to each table.
                         </p>
 
                         <div class="space-y-3">
                             <label class="block">
                                 <span class="text-white mb-1 block">Table: Products</span>
-                                <input type="text" name="q1_products" class="themed-input" placeholder="e.g., product_id">
+                                <input type="text" name="q1_products" class="themed-input"
+                                    placeholder="e.g., product_id">
                             </label>
                             <label class="block">
                                 <span class="text-white mb-1 block">Table: Customers</span>
-                                <input type="text" name="q1_customers" class="themed-input" placeholder="e.g., customer_id">
+                                <input type="text" name="q1_customers" class="themed-input"
+                                    placeholder="e.g., customer_id">
                             </label>
                             <label class="block">
                                 <span class="text-white mb-1 block">Table: Orders</span>
@@ -155,132 +238,138 @@
                         </div>
                     </div>
 
-                    <!-- QUESTION 2: Design the Relationships (Code Block Mock) -->
                     <div class="question-div" data-question-id="q2">
                         <div class="text-[var(--acent-clr)] font-bold mb-1">Question 2 (10 Points)</div>
-                        <h3 class="text-xl font-semibold mb-4">Design the Relationships and Foreign Keys</h3>
+                        <h3 class="text-xl font-semibold mb-4">Design the Relationships</h3>
                         <p class="text-[var(--secondary-text-clr)] mb-4">
-                            Using SQL-like syntax or pseudo-code, briefly describe the foreign key relationships required between the Products, Customers, and Orders tables (e.g., how does Orders link to Products?).
+                            Using SQL-like syntax or pseudo-code, describe the foreign key relationships required
+                            between Products, Customers, and Orders.
                         </p>
-                        
-                        <textarea name="q2_relationships" class="themed-textarea h-48 resize-y font-mono text-sm" placeholder="-- Your SQL or Pseudo-code here...
--- Example: 
--- Orders.customer_id REFERENCES Customers.customer_id
-"></textarea>
+
+                        <textarea name="q2_relationships" class="themed-textarea h-48 resize-y font-mono text-sm"
+                            placeholder="-- Your SQL or Pseudo-code here..."></textarea>
                     </div>
-                    
-                    <!-- Final Submit Button (visible below questions) -->
+
                     <div class="pt-8 pb-12 flex justify-center">
-                         <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-10 rounded-xl transition-colors shadow-2xl transform hover:scale-[1.02] active:scale-100">
+                        <button type="submit"
+                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-10 rounded-xl transition-colors shadow-2xl transform hover:scale-[1.02] active:scale-100">
                             Final Submission
                         </button>
                     </div>
 
                 </form>
 
-            </div> <!-- End Assignment Content -->
+            </div>
         </main>
     </div>
 
-    <!-- JavaScript for dynamic loading and validation -->
     <script>
-        // --- Mock Data ---
         const mockAssignments = {
-            "141242": {
+            "data-analysis-report": {
                 title: "Data Analysis Report",
                 dueDate: "2025-12-10T20:00:00",
             },
-            "141243": {
+            "database-schema-design": {
                 title: "Database Schema Design",
                 dueDate: "2025-12-25T12:00:00",
             },
-            "141244": {
+            "intro-to-project-mgmt": {
                 title: "Project Management Summary",
                 dueDate: "2025-11-15T23:59:00",
             }
         };
 
-        // --- Core Application Logic ---
-
-        // Global element references
         const initialState = document.getElementById('initial-state');
         const loadingState = document.getElementById('loading-state');
         const errorState = document.getElementById('error-state');
         const assignmentContent = document.getElementById('assignment-content');
         const assignmentHeader = document.getElementById('assignment-header');
-        
-        // Header elements
         const headerTitle = document.getElementById('header-title');
-        const headerId = document.getElementById('header-id');
-        
-        // Summary elements
+        const headerMeta = document.getElementById('header-meta');
         const summaryName = document.getElementById('summary-name');
         const summaryDob = document.getElementById('summary-dob');
         const summaryTeacher = document.getElementById('summary-teacher');
 
-        /**
-         * Parses URL for required parameters and initializes the page.
-         */
         function initializePage() {
             const params = new URLSearchParams(window.location.search);
-            const id = params.get("id");
-            const name = params.get("name");
+            const nameKey = params.get("name");
+            const userName = params.get("user");
             const dob = params.get("dob");
             const teacher = params.get("teacher");
 
-            // 1. Strict URL Validation
-            if (!id || !name || !dob || !teacher || !mockAssignments[id]) {
+            if (!nameKey || !userName || !dob || !teacher || !mockAssignments[nameKey]) {
                 loadingState.classList.add('hidden');
                 errorState.classList.remove('hidden');
                 return;
             }
 
-            // 2. Successful Load State
-            const assignment = mockAssignments[id];
-            
+            const assignment = mockAssignments[nameKey];
+
             initialState.classList.add('hidden');
             assignmentContent.classList.remove('hidden');
             assignmentHeader.classList.remove('hidden');
 
-            // Set Identity Summary
-            summaryName.textContent = name;
+            summaryName.textContent = userName;
             summaryDob.textContent = dob;
             summaryTeacher.textContent = teacher;
 
-            // Set Sticky Header Details
             headerTitle.textContent = assignment.title;
-            headerId.textContent = `ID: ${id} | Due: ${new Date(assignment.dueDate).toLocaleDateString()}`;
+            headerMeta.textContent = `Due: ${new Date(assignment.dueDate).toLocaleDateString()}`;
 
-            // 3. Setup Buttons (Mock functionality for now)
             document.getElementById('save-btn').addEventListener('click', () => {
-                alertUser("Progress saved locally! (Mock)");
+                console.log("Progress saved locally.");
             });
 
             document.getElementById('submit-btn').addEventListener('click', (e) => {
                 e.preventDefault();
-                alertUser("Submitting Assignment... (Mock)");
-                // In a real app, form submission logic would go here.
+                document.getElementById('question-form').requestSubmit();
             });
 
-            // Handle Form Submission (prevent default refresh)
             document.getElementById('question-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                alertUser("Form intercepted for Submission! (Mock)");
+
+                const formData = new FormData(e.target);
+                const userName = new URLSearchParams(window.location.search).get("user");
+
+                // 1. Create a "Receipt" UI
+                let receiptHTML = `
+        <div class="bg-green-900/20 border border-green-500 p-6 rounded-xl mb-8 text-center">
+            <h2 class="text-3xl font-bold text-green-400">Assignment Submitted!</h2>
+            <p class="text-white mt-2">Confirmation for: <strong>${userName}</strong></p>
+            <p class="text-sm text-gray-400">Date: ${new Date().toLocaleString()}</p>
+            <button onclick="window.print()" class="mt-4 bg-white text-black px-4 py-2 rounded font-bold">Print / Save as PDF</button>
+        </div>
+        <div class="space-y-6">
+    `;
+
+                // 2. Add each answer to the receipt
+                formData.forEach((value, key) => {
+                    receiptHTML += `
+                                    <div class="border-l-4 border-[var(--acent-clr)] bg-[var(--hover-clr)] p-4 rounded-r-lg">
+                                        <h4 class="text-xs uppercase text-[var(--secondary-text-clr)] font-bold">${key.replace('_', ' ')}</h4>
+                                        <p class="text-white mt-1 whitespace-pre-wrap">${value || "<i>No answer provided.</i>"}</p>
+                                    </div>
+                                    `;
+                });
+
+                receiptHTML += `</div><div class="mt-8 text-center">
+                                    <a href="/stu/assigns.html" class="text-[var(--acent-clr)] hover:underline">Return to Dashboard</a>
+                                </div>`;
+
+                // 3. Replace the form with the receipt
+                const container = document.getElementById('assignment-content');
+                container.innerHTML = receiptHTML;
+
+                // 4. Scroll to top so they see the success message
+                window.scrollTo(0, 0);
+
+                // 5. Hide the sticky header "Submit" button
+                document.getElementById('assignment-header').style.display = 'none';
             });
-        }
-        
-        /**
-         * Replaces window.alert() with a console log for canvas compliance.
-         * For UI feedback, you'd use a temporary message box.
-         */
-        function alertUser(message) {
-            console.log("UI MESSAGE:", message);
-            // Implement a temporary message box UI here for a real application
         }
 
         document.addEventListener("DOMContentLoaded", initializePage);
-        
-        // Utility functions for future LLM API calls (using exponential backoff)
+
         window.llmFetch = async (url, options, retries = 3) => {
             for (let i = 0; i < retries; i++) {
                 try {
@@ -288,10 +377,7 @@
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     return response;
                 } catch (error) {
-                    if (i === retries - 1) {
-                        console.error("LLM API call failed after all retries:", error);
-                        throw error;
-                    }
+                    if (i === retries - 1) throw error;
                     const delay = Math.pow(2, i) * 1000;
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
@@ -299,4 +385,5 @@
         };
     </script>
 </body>
+
 </html>

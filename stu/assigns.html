@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IISAQ - Assignments</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/al/S.css">
 
-    <!-- Custom Styles and Variables -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -24,21 +23,20 @@
         }
 
         body {
+            padding: 0;
+            margin: 0;
             font-family: 'Poppins', sans-serif;
             background-color: var(--base-clr);
             color: var(--text-clr);
             min-height: 100vh;
         }
 
-        /* Custom style for the accent bar */
         .assignsdiv {
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             position: relative;
             padding-left: 1rem;
-            /* Space for the accent bar */
             border-left: 4px solid var(--acent-clr);
-            /* The accent bar */
             margin-bottom: 1rem;
         }
 
@@ -46,151 +44,103 @@
             background-color: var(--hover-clr);
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow on hover */
         }
     </style>
 </head>
 
-<body class="p-4 sm:p-8">
-
-    <main class="max-w-4xl mx-auto">
+<body class="flex items-start">
+    <nav id="sidebar" class="close sticky top-0 h-screen w-64 flex-shrink-0" style="position: sticky;">
+        <ul>
+            <li>
+                <span class="logo">Dashboard</span>
+                <button onclick="toggleSidebar()" id="toggle-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="M440-240 200-480l240-240 56 56-183 184 183 184-56 56Zm264 0L464-480l240-240 56 56-183 184 183 184-56 56Z" />
+                    </svg>
+                </button>
+            </li>
+            <li class="active">
+                <a href="profile.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="M480-480q-83 0-141.5-58.5T280-680q0-83 58.5-141.5T480-880q83 0 141.5 58.5T680-680q0 83-58.5 141.5T480-480Zm0 80q83 0 156 31.5t127 85.5q54 54 85.5 127T880-80H80q0-83 31.5-156t85.5-127q54-54 127-85.5T480-400Z" />
+                    </svg>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z" />
+                    </svg>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="/al/feedback.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
+                        <path d="M240-400h122l200-200q9-9 13.5-20.5T580-643q0-11-5-21.5T562-684l-36-38q-9-9-20-13.5t-23-4.5q-11 0-22.5 4.5T440-722L240-522v122Zm280-243-37-37 37 37ZM300-460v-38l101-101 20 18 18 20-101 101h-38Zm121-121 18 20-38-38 20 18Zm26 181h273v-80H527l-80 80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
+                    </svg>
+                    <span>Feedback</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <main class="max-w-4xl mx-10 mt-10" style="padding: none;">
         <h1 class="text-3xl font-bold mb-2">Assignments Overview</h1>
         <p class="text-[var(--secondary-text-clr)] mb-6">A list of all pending and upcoming tasks.</p>
         <hr class="border-[var(--line-clr)] mb-8">
 
-        <!-- Assignment List Container -->
         <div id="assignment-list" class="space-y-4">
 
-            <!-- Example Assignment 1 -->
-            <!-- Note: Added data-due-date for time calculation -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141242"
-                data-due-date="2025-12-10T20:00:00">
-                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
+            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" 
+                 data-name="data-analysis-report"
+                 data-due-date="2026-12-10T20:00:00">
+                <div class="a grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
 
-                    <!-- Title (Col 1/2) -->
-                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 1: Data Analysis Report</h2>
+                    <h2 class="text-xl font-semibold col-span-2 truncate">Data Analysis Report</h2>
 
-                    <!-- ID (Col 3) -->
-                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
-                        ¤ 141242
-                    </div>
-
-                    <!-- Due Date & Time Remaining (Col 4) -->
                     <div class="col-span-1 text-right md:text-left">
                         <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-10</p>
-                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141242">Calculating...
-                        </p>
+                        <p class="time-remaining text-xs font-medium text-green-400" data-target="data-analysis-report">Calculating...</p>
                     </div>
 
-                    <!-- Start Button (Col 5) -->
                     <div class="flex justify-end col-span-1">
-                        <button
-                            class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md"
-                            data-id="141242">
+                        <button class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md"
+                                data-name="data-analysis-report">
                             Start
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Example Assignment 2 -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141243"
-                data-due-date="2025-12-25T12:00:00">
-                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
-
-                    <!-- Title (Col 1/2) -->
-                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 2: Database Schema Design</h2>
-
-                    <!-- ID (Col 3) -->
-                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
-                        ¤ 141243
-                    </div>
-
-                    <!-- Due Date & Time Remaining (Col 4) -->
-                    <div class="col-span-1 text-right md:text-left">
-                        <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-12-25</p>
-                        <p class="time-remaining text-xs font-medium text-green-400" data-target="141243">Calculating...
-                        </p>
-                    </div>
-
-                    <!-- Start Button (Col 5) -->
-                    <div class="flex justify-end col-span-1">
-                        <button
-                            class="sb bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 shadow-md"
-                            data-id="141243">
-                            Start
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Example Assignment 3 (Past Due) -->
-            <div class="assignsdiv card p-4 rounded-xl shadow-lg border border-[var(--line-clr)]" data-id="141244"
-                data-due-date="2025-11-15T23:59:00">
-                <div class="a grid grid-cols-2 md:grid-cols-5 gap-4 items-center">
-
-                    <!-- Title (Col 1/2) -->
-                    <h2 class="text-xl font-semibold col-span-2 truncate">Assignment 3: Introduction to Project Mgmt
-                    </h2>
-
-                    <!-- ID (Col 3) -->
-                    <div class="id text-[var(--secondary-text-clr)] text-sm hidden md:block">
-                        ¤ 141244
-                    </div>
-
-                    <!-- Due Date & Time Remaining (Col 4) -->
-                    <div class="col-span-1 text-right md:text-left">
-                        <p class="ap text-sm text-[var(--secondary-text-clr)] mb-0.5">Due: 2025-11-15</p>
-                        <p class="time-remaining text-xs font-medium text-red-500" data-target="141244">EXPIRED</p>
-                    </div>
-
-                    <!-- Start Button (Col 5) -->
-                    <div class="flex justify-end col-span-1">
-                        <button
-                            class="sb bg-gray-600 cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg opacity-50"
-                            data-id="141244" disabled>
-                            Submitted
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div> <!-- End Assignment List Container -->
+        </div>
     </main>
 
     <script>
-        // --- Core Application Logic ---
-
-        // 1. Navigation Handlers
         function setupNavigation() {
-            // Div click (opens details page)
             document.querySelectorAll(".assignsdiv").forEach(div => {
                 div.addEventListener("click", () => {
-                    const id = div.dataset.id;
-                    // Simulating navigation based on your original JS
-                    window.location.href = `/as/details.html?id=${id}`;
+                    const name = div.dataset.name;
+                    window.location.href = `/as/details.html?name=${name}`;
                 });
             });
 
-            // Start button click (opens start page)
             document.querySelectorAll(".sb").forEach(button => {
                 button.addEventListener("click", (e) => {
-                    e.stopPropagation(); // Prevent the parent div's click event
-                    const id = button.dataset.id;
-                    // Simulating navigation based on your original JS
+                    e.stopPropagation();
+                    const name = button.dataset.name;
                     if (!button.disabled) {
-                        window.location.href = `/as/start.html?id=${id}`;
+                        window.location.href = `/as/start.html?name=${name}`;
                     }
                 });
             });
         }
 
-        // 2. Time Remaining Calculation
         function updateTimeRemaining() {
             document.querySelectorAll(".assignsdiv").forEach(div => {
                 const dueDateStr = div.dataset.dueDate;
-                const assignmentId = div.dataset.id;
-                const timeElement = document.querySelector(`.time-remaining[data-target="${assignmentId}"]`);
+                const assignmentName = div.dataset.name;
+                const timeElement = document.querySelector(`.time-remaining[data-target="${assignmentName}"]`);
 
                 if (!dueDateStr || !timeElement) return;
 
@@ -199,19 +149,16 @@
                 const difference = dueDate - now;
 
                 if (difference <= 0) {
-                    // Past Due
                     timeElement.textContent = "Expired";
                     timeElement.classList.remove('text-green-400');
                     timeElement.classList.add('text-red-500');
-                    // Optionally disable start button if assignment is truly past due
-                    const startButton = document.querySelector(`.sb[data-id="${assignmentId}"]`);
+                    const startButton = document.querySelector(`.sb[data-name="${assignmentName}"]`);
                     if (startButton && startButton.textContent !== 'Submitted') {
                         startButton.textContent = 'View';
                         startButton.classList.add('bg-gray-700', 'hover:bg-gray-700', 'cursor-pointer');
                         startButton.classList.remove('bg-[var(--btn-clr)]', 'hover:bg-[var(--btn-hover-clr)]');
                     }
                 } else {
-                    // Still time remaining
                     const seconds = Math.floor(difference / 1000);
                     const minutes = Math.floor(seconds / 60);
                     const hours = Math.floor(minutes / 60);
@@ -222,15 +169,9 @@
                     const remainingSeconds = seconds % 60;
 
                     let timeString = '';
-                    if (days > 0) {
-                        timeString += `${days}d `;
-                    }
-                    if (remainingHours > 0 || days > 0) {
-                        timeString += `${remainingHours}h `;
-                    }
-                    if (remainingMinutes > 0 || remainingHours > 0 || days > 0) {
-                        timeString += `${remainingMinutes}m `;
-                    }
+                    if (days > 0) timeString += `${days}d `;
+                    if (remainingHours > 0 || days > 0) timeString += `${remainingHours}h `;
+                    if (remainingMinutes > 0 || remainingHours > 0 || days > 0) timeString += `${remainingMinutes}m `;
                     timeString += `${remainingSeconds}s`;
 
                     timeElement.textContent = `Time Remaining: ${timeString.trim()}`;
@@ -240,15 +181,11 @@
             });
         }
 
-        // 3. Initialization
         document.addEventListener("DOMContentLoaded", () => {
             setupNavigation();
-
-            // Run time update immediately and then every second
             updateTimeRemaining();
             setInterval(updateTimeRemaining, 1000);
 
-            // Utility functions for future LLM API calls (using exponential backoff)
             window.llmFetch = async (url, options, retries = 3) => {
                 for (let i = 0; i < retries; i++) {
                     try {
@@ -256,10 +193,7 @@
                         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                         return response;
                     } catch (error) {
-                        if (i === retries - 1) {
-                            console.error("LLM API call failed after all retries:", error);
-                            throw error;
-                        }
+                        if (i === retries - 1) throw error;
                         const delay = Math.pow(2, i) * 1000;
                         await new Promise(resolve => setTimeout(resolve, delay));
                     }
@@ -268,6 +202,7 @@
         });
     </script>
     <script src="/accessVer/stu.js"></script>
+    <script src="/al/main.js"></script>
 </body>
 
 </html>
