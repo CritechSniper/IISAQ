@@ -1,0 +1,115 @@
+:root {
+    --accent: #5e63ff;
+    --bg-dark: #11121a;
+    --text: #e6e6ef;
+    --line-clr: #42434a;
+}
+
+.feedback-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'Poppins', sans-serif;
+}
+
+.feedback-trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.trigger-text {
+    background: var(--accent);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px 0 0 5px;
+    margin-right: -2px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.trigger-box {
+    background: var(--accent);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.feedback-trigger:hover .trigger-text {
+    opacity: 1;
+    transform: translateX(1px);
+}
+
+.feedback-trigger:hover .trigger-box {
+    corner-shape: bevel squircle squircle bevel;
+}
+
+.feedback-form-card {
+    display: none;
+    width: 300px;
+    background: var(--bg-dark);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.feedback-form-card.active {
+    display: block;
+    animation: fb-slideUp 0.3s ease;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#close-feedback {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.feedback-form-card input, 
+.feedback-form-card textarea {
+    width: 100%;
+    background: #1c1e29;
+    border: 1px solid #42434a;
+    color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+#submitBtn {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@keyframes fb-slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -103,9 +103,16 @@ body {
   background-color: var(--hover-clr);
 }
 
+li:first-child {
+  margin-top: 10px;
+  transition: all 0.3s ease-in-out;
+}
+#sidebar.close li:first-child {
+  margin-top: 0;
+}
 #toggle-btn {
   margin-left: auto;
-  padding: 1em;
+  padding: 0.85em;
   border: none;
   border-radius: .5em;
   background: none;
