@@ -12,5 +12,6 @@ export async function tl(t, SID, pwd) {
       })
     }
   );
-  return await r.json();
+  const a = await r.json()
+  return await a
 }

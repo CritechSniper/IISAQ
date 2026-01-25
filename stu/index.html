@@ -123,27 +123,14 @@
                     <span class="hidden md:inline">Dashboard</span>
                     <span class="text-xs md:hidden">L1</span>
                 </a>
-                <a href="#"
+                <a href="profile.html"
                     class="flex items-center p-3 rounded-xl hover:bg-[var(--line-clr)] transition-colors duration-200">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z">
-                        </path>
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
-                    <span class="hidden md:inline">Lorem Ipsum 2</span>
+                    <span class="hidden md:inline">Profile</span>
                     <span class="text-xs md:hidden">L2</span>
-                </a>
-                <a href="#"
-                    class="flex items-center p-3 rounded-xl hover:bg-[var(--line-clr)] transition-colors duration-200">
-                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                        </path>
-                    </svg>
-                    <span class="hidden md:inline">Lorem Ipsum 3</span>
-                    <span class="text-xs md:hidden">L3</span>
                 </a>
             </nav>
         </aside>
@@ -153,7 +140,7 @@
 
             <header class="pb-6 border-b border-[var(--line-clr)] mb-8">
                 <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-                    Hi <span id="username" class="username-highlight">User</span>
+                    Hi, <span id="username" class="username-highlight">User</span>!
                 </h1>
                 <p id="greeting-subtext" class="text-sm mt-1 text-[var(--secondary-text-clr)] italic"></p>
             </header>
@@ -210,39 +197,7 @@
         </main>
     </div>
 
-    <script>
-        const greetings = [
-            "Your journey to excellence starts now.",
-            "Let's make today productive and meaningful.",
-            "Ready to tackle your goals?",
-            "Welcome back! Time to focus and create.",
-            "All systems nominal. What's next?",
-            "Organize. Execute. Succeed.",
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const subtextElement = document.getElementById('greeting-subtext');
-            const randomIndex = Math.floor(Math.random() * greetings.length);
-            subtextElement.textContent = greetings[randomIndex];
-
-            window.llmFetch = async (url, options, retries = 3) => {
-                for (let i = 0; i < retries; i++) {
-                    try {
-                        const response = await fetch(url, options);
-                        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                        return response;
-                    } catch (error) {
-                        if (i === retries - 1) {
-                            console.error("LLM API call failed after all retries:", error);
-                            throw error;
-                        }
-                        const delay = Math.pow(2, i) * 1000;
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                    }
-                }
-            };
-        });
-    </script>
+    
     <div id="blur-overlay" style="display: none;"></div>
 
     <div id="warnbox" style="display: none;">
@@ -255,5 +210,42 @@
     </main>
     <script src="/accessVer/stu.js"></script>
 </body>
+<script>
+    const greetings = [
+        "Your journey to excellence starts now.",
+        "Let's make today productive and meaningful.",
+        "Ready to tackle your goals?",
+        "Welcome back! Time to focus and create.",
+        "All systems nominal. What's next?",
+        "Organize. Execute. Succeed.",
+    ];
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const subtextElement = document.getElementById('greeting-subtext');
+        const randomIndex = Math.floor(Math.random() * greetings.length);
+        subtextElement.textContent = greetings[randomIndex];
+
+        window.llmFetch = async (url, options, retries = 3) => {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response;
+                } catch (error) {
+                    if (i === retries - 1) {
+                        console.error("LLM API call failed after all retries:", error);
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        };
+    });
+    const ls = localStorage.getItem("lcds?t=s")
+    if (!ls) {window.location.href = "../login.html?t=s"}
+    const invEL = document.getElementById("username")
+    console.log(ls)
+    invEL.innerText = `${JSON.parse(ls).data.name}`
+</script>
 </html>

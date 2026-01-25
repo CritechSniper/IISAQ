@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IISAQ Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --base-clr: #11121a;
+            --line-clr: #42434a;
+            --hover-clr: #222533;
+            --text-clr: #e6e6ef;
+            --acent-clr: #5e63ff;
+            --secondary-text-clr: #b0b3c1;
+            --btn-hover-clr: hsl(240, 100%, 75%);
+            --btn-clr: hsl(240, 100%, 70%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .dashboard-container {
+            background-color: var(--base-clr);
+            color: var(--text-clr);
+        }
+
+        .sidebar {
+            background-color: var(--hover-clr);
+            border-right: 1px solid var(--line-clr);
+        }
+
+        .card {
+            background-color: var(--hover-clr);
+            border: 1px solid var(--line-clr);
+        }
+
+        .sidebar-item-active {
+            background-color: var(--base-clr);
+            border-left: 4px solid var(--acent-clr);
+            color: var(--acent-clr);
+        }
+
+        .username-highlight {
+            color: var(--acent-clr);
+        }
+
+        #blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+            display: none;
+        }
+
+        #warnbox {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--hover-clr);
+            border: 2px solid var(--acent-clr);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            text-align: center;
+            width: 300px;
+        }
+
+        #warnbox h2 {
+            color: var(--acent-clr);
+            margin-top: 0;
+        }
+
+        #warnbox p {
+            color: var(--secondary-text-clr);
+        }
+
+        .timer-display {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        #countdown {
+            color: #ff4757;
+        }
+        #main {
+            display: flex;
+            margin: 50% 101%;
+            width: fit-content;
+            min-width: 200px;
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
+        }
+        #logoutholder {
+            width: fit-content;
+            height: fit-content;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="dashboard-container min-h-screen flex">
+
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-20 md:w-64 fixed h-full transition-all duration-300 p-4 z-10">
+            <div class="py-2 mb-8 flex items-center justify-center md:justify-start">
+                <svg class="w-8 h-8 text-[var(--acent-clr)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                    </path>
+                </svg>
+                <span class="ml-3 text-xl font-bold hidden md:inline">IISAQ</span>
+            </div>
+
+            <!-- Sidebar Items  -->
+            <nav class="space-y-4">
+                <a href="#" class="flex items-center p-3 rounded-xl sidebar-item-active transition-colors duration-200">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Profile</span>
+                    
+                    <span class="text-xs md:hidden">L1</span>
+                </a>
+                <a href="/stu/index.html"
+                    class="flex items-center p-3 rounded-xl hover:bg-[var(--line-clr)] transition-colors duration-200">
+                    <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                    <span class="hidden md:inline">Dashboard</span>
+                    <span class="text-xs md:hidden">L2</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main -->
+        <main class="flex-1 p-4 md:p-8 ml-20 md:ml-64 transition-all duration-300 overflow-y-auto">
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card p-5 rounded-xl shadow-lg" id="main">
+
+                    <div class="card p-5 rounded-xl shadow-lg"id="logoutholder">
+                        <button style="color:white;background-color:red;height:fit-content;padding:7px;border-radius:6px;font-weight:bold;postion:absolute"onclick="localStorage.removeItem('lcds?t=s');window.location.href='/index.html'">Log out</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    
+    <div id="blur-overlay" style="display: none;"></div>
+
+    <div id="warnbox" style="display: none;">
+        <h2 id="warnsubtext">Access Denied</h2>
+        <p>You are not logged in. Redirecting to the main page...</p>
+        <p class="timer-display">Redirect in <span id="countdown">10</span> seconds.</p>
+    </div>
+
+    <main id="external-content-container">
+    </main>
+    <script src="/accessVer/stu.js"></script>
+</body>
+<script>
+  const ls = localStorage.getItem("lcds?t=s")
+  if (!ls) {window.location.href = "../login.html?t=s"}
+  const d = JSON.parse(ls).data;
+  if(!d){window.location.href = "../login.html?t=s"};
+  const main = document.getElementById("main");
+  const ba = [];
+  for ( const s in d ) {ba.push(s)};
+  Object.values(d).forEach( (d,i)=> {if(!i>0) return;if(d==="InvalidRequest")return;main.innerHTML+=`${ba[i]}: ${d}<br>`;})
+</script>
+</html>

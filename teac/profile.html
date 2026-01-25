@@ -174,7 +174,9 @@
     } else {
       const parsed = JSON.parse(lcds);
       const data = parsed.data;
-
+      for (const d in data) {
+        if(!d)window.location.href = "/index.html";
+      }
       if (!data) {
         window.location.href = "/index.html";
       } else {
@@ -211,14 +213,6 @@
             </details>
           </div>
 
-          <div class="data-row">
-            <span class="data-label">Password</span>
-            <div class="password-wrapper">
-              <span id="pass-text" data-password="${data.password}">••••••••</span>
-              <button type="button" id="toggle-pass-btn" class="toggle-eye">Show</button>
-            </div>
-          </div>
-
           <button id="logout-btn" class="w-full mt-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700 transition-colors duration-200">
             Log Out
           </button>
@@ -231,18 +225,7 @@
         window.location.href = "/index.html";
       });
     }
-    document.getElementById("toggle-pass-btn").addEventListener("click", function () {
-      const passText = document.getElementById("pass-text");
-      const actualPassword = passText.getAttribute("data-password");
 
-      if (passText.innerText === "••••••••") {
-        passText.innerText = actualPassword;
-        this.innerText = "Hide";
-      } else {
-        passText.innerText = "••••••••";
-        this.innerText = "Show";
-      }
-    });
   </script>
 </body>
 

@@ -243,6 +243,7 @@
         document.getElementById("password").addEventListener("keydown", e => {
             if (e.key === "Enter") {
                 sbtn.click();
+                sbtn.setAttribute("disabled",true)
             }
         });
 
@@ -266,6 +267,7 @@
                     return alert("Failed login!")
                 };
                 alert("Login success!");
+                r.data.password="InvalidRequest"
                 localStorage.setItem("lcds?t=t", JSON.stringify(r))
                 console.log(r)
                 window.location.href = "teac/index.html"
@@ -284,6 +286,7 @@
                 };
                 alert("Login success!");
                 console.log(inps.sid.value, inps.pwd.value)
+                r.data.password="InvalidRequest"
                 localStorage.setItem("lcds?t=s", JSON.stringify(r))
                 window.location.href = "stu/index.html"
             })
