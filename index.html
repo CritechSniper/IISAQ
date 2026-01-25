@@ -57,8 +57,8 @@
 					Centralize, organize, and submit all your academic tasks effortlessly. Focus on learning, we'll handle the
 					logistics.
 				</p>
-				<div class="space-x-4">
-					<button class="btn-cta-primary" onclick="window.location.href = `/login.html?t=s`;">
+				<div class="space-x-4" id="idkwth">
+					<button class="btn-cta-primary" onclick="window.location.href = `/login.html?t=s`;"id="dsbrdr">
 						Log in as Student
 					</button>
 					<a href="#features" class="btn-secondary">
@@ -190,6 +190,29 @@
 			menu.style.top = '-200%';
 			menu.style.left = '-200%';
 		}
+		(()=>{
+			const dsbrdr = document.getElementById("dsbrdr");
+			let td = localStorage.getItem("lcds?t=t");
+			let sd = localStorage.getItem("lcds?t=s")
+			if(td&&sd) {
+				const btns = dsbrdr.style
+				btns.position="fixed";
+				btns.bottom = "17px"
+				btns.left = "17px"
+				const ss = "border:1px solid black;padding:7px;border-radius:5px" // <--- Edit the styles ik its ugly 
+				dsbrdr.innerHTML=`<button style="${ss}"><a href="/teac/">Return to ${JSON.parse(td).data.SID}'s Dashboard</a></button><br><br>`
+				dsbrdr.innerHTML+=`<button style="${ss}"><a href="/stu/">Return to ${JSON.parse(sd).data.SID}'s Dashboard</a></button>`
+				dsbrdr.setAttribute("disabled",true)
+				dsbrdr.onclick=""
+			}else if(td) {
+				dsbrdr.innerHTML=`Return to ${JSON.parse(td).data.SID}'s Dashboard`
+				dsbrdr.onclick=()=>{window.location.href="/teac/"}
+			}else if(sd) {
+				dsbrdr.innerHTML=`Return to ${JSON.parse(sd).data.SID}'s Dashboard`
+				dsbrdr.onclick=()=>{window.location.href="/stu/"}
+			}
+			
+		})()
 	</script>
 	<script src="contextmenu.js"></script>
 </body>
