@@ -1,6 +1,3 @@
-// contextmenu.js
-
-// --- 1. CSS Styles as a string ---
 const contextMenuCSS = `
 .menu{
     width: auto;
@@ -33,10 +30,8 @@ const contextMenuCSS = `
 } 
 `;
 
-// --- 2. Core Menu Logic ---
 let menu = null;
 
-// Function to inject CSS styles into the document
 function injectCSS(css) {
     const style = document.createElement('style');
     style.textContent = css;
@@ -44,34 +39,26 @@ function injectCSS(css) {
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-    // Inject the CSS first
     injectCSS(contextMenuCSS);
     
-    // Select the menu element
     menu = document.querySelector('.menu');
     
-    // Proceed only if the menu element is found
     if (menu) {
-        // 1. Hide the menu initially
         menu.classList.add('off');
         
-        // 2. Add the right click listener to the whole document
         document.addEventListener('contextmenu', showmenu);
         
-        // 3. Disable context menu for elements with the 'noCon' class
         const noConElements = document.querySelectorAll('.noCon');
     
         noConElements.forEach(element => {
             element.addEventListener('contextmenu', (e) => {
-                e.preventDefault(); // Stop the default browser menu
-                hidemenu();         // Hide the custom menu
+                e.preventDefault(); 
+                hidemenu();
             });
         });          
         
-        // 4. Add a listener for leaving the menu and hiding it
         menu.addEventListener('mouseleave', hidemenu);
         
-        // 5. Add the listeners for the menu items
         addMenuListeners();
     }
 });
@@ -91,11 +78,9 @@ function addMenuListeners(){
 }
 
 function showmenu(ev){
-    // Stop the real right click menu
     ev.preventDefault(); 
     
     if (menu) {
-        // Show the custom menu at cursor position
         console.log( ev.clientX, ev.clientY );
         menu.style.top = `${ev.clientY}px`;
         menu.style.left = `${ev.clientX}px`;
