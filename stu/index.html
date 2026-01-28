@@ -30,13 +30,6 @@
 			color: var(--text-clr);
 		}
 
-
-
-		.sidebar {
-			background-color: var(--hover-clr);
-			border-right: 1px solid var(--line-clr);
-		}
-
 		.card {
 			background-color: var(--hover-clr);
 			border: 1px solid var(--line-clr);
@@ -113,10 +106,10 @@
 	<div class="dashboard-container min-h-screen flex">
 
 		<!-- Sidebar -->
-		<nav id="sidebar" class="close">
+		<nav id="sidebar" class="">
 			<ul>
 				<li>
-					<span class="logo"><a href="/index.html" style="width: 100%;">IISAQ</a></span>
+					<span><a href="/index.html" class="logo">IISAQ</a></span>
 
 					<button onclick="toggleSidebar()" id="toggle-btn">
 						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
@@ -223,7 +216,6 @@
 
 	<main id="external-content-container">
 	</main>
-	<script src="/accessVer/stu.js"></script>
 </body>
 <script>
 	const greetings = [

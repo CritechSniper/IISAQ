@@ -25,7 +25,7 @@ body {
   background-color: var(--base-clr);
   color: var(--text-clr);
   display: grid;
-  /* grid-template-columns: auto 1fr; */
+  grid-template-columns: auto 1fr;
 }
 
 #sidebar {

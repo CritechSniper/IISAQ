@@ -200,7 +200,7 @@
 				btns.bottom = "17px"
 				btns.left = "17px"
 				const ss = "border:1px solid black;padding:7px;border-radius:5px" // <--- Edit the styles ik its ugly 
-				dsbrdr.innerHTML=`<button style="${ss}"><a href="/teac/">Return to ${JSON.parse(td).data.SID}'s Dashboard</a></button><br><br>`
+				dsbrdr.innerHTML=`<button class="retToAcc" style="${ss}"><a href="/teac/">Return to ${JSON.parse(td).data.SID}'s Dashboard</a></button><br><br>`
 				dsbrdr.innerHTML+=`<button style="${ss}"><a href="/stu/">Return to ${JSON.parse(sd).data.SID}'s Dashboard</a></button>`
 				dsbrdr.setAttribute("disabled",true)
 				dsbrdr.onclick=""
