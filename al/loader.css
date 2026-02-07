@@ -1,0 +1,142 @@
+.WelcomingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.568);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.mainG {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.mainG svg {
+  width: 100px;
+  height: 100px;
+}
+/* -------------------------just extra details for svg animation------------------------- */
+.gearboxRotate  {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rotate 5s ease-in-out infinite;
+}
+@keyframes rotate {
+  0%, 10% {
+    transform: rotate(0deg);
+  }
+  15%, 30% {
+    transform: rotate(45deg);
+  }
+  35%, 50% {
+    transform: rotate(90deg);
+  }
+  55%, 70% {
+    transform: rotate(135deg);
+  }
+  75%, 90% {
+    transform: rotate(180deg);
+  }
+  95%, 100% {
+    transform: rotate(225deg);
+  }
+}
+
+.bulb-flicker {
+  /* fill: #333; */
+  transition: fill 0.2s;
+  /* animation: flicker-sync 5s infinite;  */
+}
+@keyframes flicker-sync-left {
+  0%, 30% { 
+    fill: #477D8C; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  35%, 38%, 41% { 
+    fill: #ffdb58; 
+    filter: drop-shadow(0 0 8px #ffdb58);
+  }
+  36%, 40%, 42% { 
+    fill: #477D8C; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  43%, 85% { 
+    fill: #477D8C; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  91%, 94%, 97% { 
+    fill: #fff1b0; 
+    filter: drop-shadow(0 0 12px #ffdb58);
+  }
+  92%, 95%, 98% { 
+    fill: #477D8C; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+@keyframes flicker-sync-right {
+  0%, 30% { 
+    fill: #2A6480; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  35%, 38%, 41% { 
+    fill: #ffdb58; 
+    filter: drop-shadow(0 0 8px #ffdb58);
+  }
+  36%, 40%, 42% { 
+    fill: #2A6480; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  43%, 85% { 
+    fill: #2A6480; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  91%, 94%, 97% { 
+    fill: #fff1b0; 
+    filter: drop-shadow(0 0 12px #ffdb58);
+  }
+  92%, 95%, 98% { 
+    fill: #2A6480; 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+.mainG .left {
+  animation: flicker-sync-left 5s infinite;
+  fill: #477D8C; 
+}
+.mainG .right {
+  animation: flicker-sync-right 5s infinite;
+  fill: #2A6480;
+}
+/*--------------------------------text---------------------------------*/
+.welcomeText {
+  color: #fff;
+  font-size: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: slide-out-to-left 5s ease-in-out forwards;
+}
+.username {
+  color: #5e63ff;
+}
+
+@keyframes slide-out-to-left {
+  0%, 40% {
+    opacity: 0;
+    max-width: 0;
+  }
+  100% {
+    opacity: 1;
+    max-width: 1000px;
+  }
+}
