@@ -17,3 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleButton.onclick = toggleSidebar;
   }
 });
+['contextmenu', 'selectstart', 'dragstart'].forEach(e => document.addEventListener(e, x => x.preventDefault()));
+const loader = document.getElementById('welcomeLoader');
+
+loader.addEventListener('click', () => {
+    loader.classList.add('exit');
+    
+    setTimeout(() => {
+        loader.remove();
+    }, 600);
+});
+const usernames = document.querySelectorAll('.username');
+const nameRegex = /\b(muhammed|mohammed|muhammad|mohammad)\b/gi;
+usernames.forEach(element => {
+  element.textContent = element.textContent.replace(nameRegex, 'M.');
+});

@@ -77,7 +77,7 @@
 			border-radius: 12px;
 			padding: 30px;
 			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-			z-index: 1000;
+			z-index: 99999;
 			text-align: center;
 			width: 300px;
 		}
@@ -104,7 +104,7 @@
 
 <body class="antialiased">
 
-	<div class="WelcomingOverlay">
+	<div class="WelcomingOverlay" id="welcomeLoader" onclick="this.classList.add('exit')">
 		<div class="mainG">
 			<div class="logo"><svg width="24px" height="24px" viewBox="0 0 186 281" fill="none"
 					xmlns="http://www.w3.org/2000/svg">
@@ -159,6 +159,27 @@
 				</svg></div>
 			<div class="font-extrabold welcomeText">Welcome.</div>
 		</div>
+		<div class="Udetails">
+			<div class="details-card">
+				<div class="data-row">
+					<span class="data-label">Identity Status</span>
+					<p class="data-value highlight">Verified</p>
+				</div>
+				<hr class="divider">
+				<div class="side-by-side">
+					<div class="data-row">
+						<span class="data-label">Sector</span>
+						<p class="data-value" id="class">Loading...</p>
+					</div>
+					<div class="data-row">
+						<span class="data-label">Class Supervisor</span>
+						<p class="data-value" id="classTeac">Loading...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="click-prompt">Click anywhere to skip</div>
 	</div>
 
 	<div class="dashboard-container min-h-screen flex">
@@ -245,15 +266,6 @@
 						<span>Home</span>
 					</a>
 				</li>
-				<!-- <li>
-					<a href="/al/feedback.html">
-						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3">
-							<path
-								d="M240-400h122l200-200q9-9 13.5-20.5T580-643q0-11-5-21.5T562-684l-36-38q-9-9-20-13.5t-23-4.5q-11 0-22.5 4.5T440-722L240-522v122Zm280-243-37-37 37 37ZM300-460v-38l101-101 20 18 18 20-101 101h-38Zm121-121 18 20-38-38 20 18Zm26 181h273v-80H527l-80 80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
-						</svg>
-						<span>Feedback</span>
-					</a>
-				</li> -->
 			</ul>
 		</nav>
 
@@ -358,14 +370,6 @@
 			}
 		};
 	});
-	const ls = localStorage.getItem("lcds?t=s")
-	if (!ls) { window.location.href = "../login.html?t=s" }
-	const user = JSON.parse(ls).data.name
-	const invEL = document.getElementById("username")
-	const welcomeText = document.querySelector(".welcomeText")
-	console.log(ls)
-	invEL.innerText = `${user}`
-	welcomeText.innerHTML = `Welcome <span class="username">${user}</span>.`
 </script>
 <script src="/al/main.js"></script>
 <script src="/accessVer/stu.js"></script>

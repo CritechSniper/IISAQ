@@ -1,35 +1,119 @@
+:root {
+  --base-dark: rgba(0, 0, 0, 1);
+  --card-bg: #222533;
+  --accent: #5e63ff;
+  --border: #42434a;
+  --text-primary: #e6e6ef;
+  --text-secondary: #b0b3c1;
+}
+
 .WelcomingOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.568);
+  inset: 0;
+  background-color: var(--base-dark);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
-  animation: fadeout 6s ease-in-out forwards;
+  z-index: 10000;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
 }
-@keyframes fadeout {
-  0%, 80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
+
 .mainG {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 20px;
+  animation: move-up 0.8s ease-in-out 5s forwards;
 }
+
 .mainG svg {
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
 }
-/* -------------------------just extra details for svg animation------------------------- */
+
+@keyframes move-up {
+  100% { transform: translateY(-30px); }
+}
+
+.welcomeText {
+  color: #fff;
+  font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  flex-basis: 0; 
+  opacity: 0;
+  animation: smooth-reveal 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.username {
+  color: var(--accent);
+  font-weight: 600;
+}
+@keyframes smooth-reveal {
+  0%, 40% { opacity: 0; flex-basis: 0; max-width: 0; }
+  100% { opacity: 1; flex-basis: 100%; max-width: 400px; }
+}
+
+/* 2. Identity Card Styling */
+.Udetails {
+  opacity: 0;
+  animation: udetails-fade-in 0.8s ease-out 5.3s forwards;
+}
+
+.details-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 24px;
+  min-width: 280px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.side-by-side {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 10px 0;
+}
+
+.data-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.data-value {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin: 2px 0 0 0;
+}
+
+.highlight { color: var(--accent); font-weight: 600; }
+
+@keyframes udetails-fade-in {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(-10px); }
+}
+
+/* 3. Footer Prompt */
+.click-prompt {
+  position: absolute;
+  bottom: 30px;
+  color: #555;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
 .gearboxRotate  {
   transform-box: fill-box;
   transform-origin: center;
@@ -62,90 +146,80 @@
   /* animation: flicker-sync 5s infinite;  */
 }
 @keyframes flicker-sync-left {
-  0%, 30% { 
-    fill: #477D8C; 
+  0%, 30% {
+    fill: #477D8C;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  35%, 38%, 41% { 
-    fill: #ffdb58; 
+  35%, 38%, 41% {
+    fill: #ffdb58;
     filter: drop-shadow(0 0 8px #ffdb58);
   }
-  36%, 40%, 42% { 
-    fill: #477D8C; 
+  36%, 40%, 42% {
+    fill: #477D8C;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  43%, 85% { 
-    fill: #477D8C; 
+  43%, 85% {
+    fill: #477D8C;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  91%, 94%, 97% { 
-    fill: #fff1b0; 
+  91%, 94%, 97% {
+    fill: #fff1b0;
     filter: drop-shadow(0 0 12px #ffdb58);
   }
-  92%, 95%, 98% { 
-    fill: #477D8C; 
+  92%, 95%, 98% {
+    fill: #477D8C;
     filter: drop-shadow(0 0 0px transparent);
   }
 }
 @keyframes flicker-sync-right {
-  0%, 30% { 
-    fill: #2A6480; 
+  0%, 30% {
+    fill: #2A6480;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  35%, 38%, 41% { 
-    fill: #ffdb58; 
+  35%, 38%, 41% {
+    fill: #ffdb58;
     filter: drop-shadow(0 0 8px #ffdb58);
   }
-  36%, 40%, 42% { 
-    fill: #2A6480; 
+
+  36%, 40%, 42% {
+    fill: #2A6480;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  43%, 85% { 
-    fill: #2A6480; 
+  43%, 85% {
+    fill: #2A6480;
     filter: drop-shadow(0 0 0px transparent);
   }
 
-  91%, 94%, 97% { 
-    fill: #fff1b0; 
+  91%, 94%, 97% {
+    fill: #fff1b0;
     filter: drop-shadow(0 0 12px #ffdb58);
   }
-  92%, 95%, 98% { 
-    fill: #2A6480; 
+
+  92%, 95%, 98% {
+    fill: #2A6480;
     filter: drop-shadow(0 0 0px transparent);
   }
 }
 .mainG .left {
   animation: flicker-sync-left 5s infinite;
-  fill: #477D8C; 
+  fill: #477D8C;
 }
 .mainG .right {
   animation: flicker-sync-right 5s infinite;
   fill: #2A6480;
 }
-/*--------------------------------text---------------------------------*/
-.welcomeText {
-  color: #fff;
-  font-size: 24px;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: slide-out-to-left 5s ease-in-out forwards;
-}
-.username {
-  color: #5e63ff;
+
+
+.WelcomingOverlay.exit {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes slide-out-to-left {
-  0%, 40% {
-    opacity: 0;
-    max-width: 0;
-  }
-  100% {
-    opacity: 1;
-    max-width: 1000px;
-  }
-}
