@@ -5,6 +5,11 @@
     --line-clr: #42434a;
 }
 
+#feedback-wrapper {
+    position: fixed;
+    width: 0%;
+    height: 0%;
+}
 .feedback-container {
     position: fixed;
     bottom: 20px;

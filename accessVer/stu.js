@@ -15,7 +15,7 @@ function startRedirectSequence() {
 		}, REDIRECT_DELAY_MS);
 		return;
 	}
-	blurOverlay.style.display = "block";
+	blurOverlay.style.display = " block";
 	warnbox.style.display = "block";
 
 	if (warnsubtext) {
@@ -44,16 +44,21 @@ const authCheck = localStorage.getItem(AUTH_KEY);
 if (!authCheck) {
 	startRedirectSequence();
 }
+
+// user stuff, added ifs cuz tooo annoying across multiple pages
 const ls = localStorage.getItem("lcds?t=s")
 if (!ls) { window.location.href = "../login.html?t=s" }
 const username = JSON.parse(ls).data.name
 const invEL = document.getElementById("username")
 const welcomeText = document.querySelector(".welcomeText")
 console.log(ls)
-invEL.innerText = `${username}`
-welcomeText.innerHTML = `Welcome <span class="username">${username}</span>.`
-
+if (invEL || welcomeText) {
+	invEL.innerText = `${username}`
+	welcomeText.innerHTML = `Welcome <span class="username">${username}</span>.`
+}
 const classIn = document.getElementById("class");
 const teacInCharge = document.getElementById("classTeac");
-classIn.textContent = `${JSON.parse(ls).data.grade} ${JSON.parse(ls).data.section}`;
-teacInCharge.textContent = JSON.parse(ls).data.teacherName
+if (classIn || teacInCharge) {
+	classIn.textContent = `${JSON.parse(ls).data.grade} ${JSON.parse(ls).data.section}`;
+	teacInCharge.textContent = JSON.parse(ls).data.teacherName
+}
