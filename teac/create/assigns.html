@@ -1,314 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignments Creator</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment Creator</title>
+    <link rel="stylesheet" href="assigns.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="header-title">
+        Assignment Creator
+        <button id="prepobtn" class="btn btn-gray">👁️ Preview</button>
+      </h1>
 
-        :root {
-            --base-clr: #11121a;
-            --line-clr: #42434a;
-            --hover-clr: #222533;
-            --text-clr: #e6e6ef;
-            --acent-clr: #5e63ff;
-            --secondary-text-clr: #b0b3c1;
-            --btn-hover-clr: hsl(240, 100%, 75%);
-            --btn-clr: hsl(240, 100%, 70%);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--base-clr);
-            color: var(--text-clr);
-            min-height: 100vh;
-            user-select: none;
-            padding: 1.5rem;
-        }
-
-        /* Styling for the dynamically created question blocks */
-        #container .question {
-            border: 1px solid var(--line-clr);
-            background-color: var(--hover-clr);
-            display: flex;
-            flex-direction: column;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            transition: box-shadow 0.3s;
-        }
-
-        #container .question:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Styling for the dynamically created inputs */
-        .question-input, .option-input {
-            background-color: var(--base-clr);
-            border: 1px solid var(--line-clr);
-            color: var(--text-clr);
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            margin-top: 0.25rem;
-            margin-bottom: 0.5rem; /* Matches the <br> spacing */
-            transition: border-color 0.2s;
-            width: 100%;
-        }
-
-        .question-input:focus, .option-input:focus {
-            outline: none;
-            border-color: var(--acent-clr);
-            box-shadow: 0 0 0 1px var(--acent-clr);
-        }
-
-        /* Styling for labels */
-        .ql {
-            color: var(--secondary-text-clr);
-            font-size: 0.875rem; /* sm text */
-            margin-bottom: 0.25rem;
-        }
-
-        /* Styling for the options container */
-        #set .options {
-            display: flex;
-            flex-direction: column;
-            padding-left: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Styling for the Preview Modal */
-        #prepo {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
-            background-color: var(--base-clr);
-            border: 2px solid var(--acent-clr);
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow-y: auto;
-            color: var(--text-clr);
-        }
-    </style>
-</head>
-<body class="p-4 sm:p-8">
-    <main class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold mb-6 flex justify-between items-center border-b border-[var(--line-clr)] pb-3">
-            Assignment Creator
-            <button id="prepobtn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors text-sm">
-                Preview
-            </button>
-        </h1>
-        
-        <div id="container">
-          <button id="add-question" title="Add a new question!" 
-                  class="bg-[var(--acent-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-bold text-lg p-3 rounded-full w-12 h-12 flex items-center justify-center transition-transform transform hover:scale-110 active:scale-95 mb-8">
-              +
-          </button>
+      <!-- Metadata Section -->
+      <div class="assignment-meta">
+        <div class="meta-group">
+          <label for="assignment-title">Assignment Title</label>
+          <input
+            type="text"
+            id="assignment-title"
+            class="meta-input"
+            placeholder="e.g. Midterm Physics Quiz"
+          />
         </div>
+        <div class="meta-group">
+          <label for="assignment-due">Due Date</label>
+          <input type="date" id="assignment-due" class="meta-input" />
+        </div>
+        <div class="meta-group">
+          <label for="assignment-points">Total Points</label>
+          <input
+            type="number"
+            id="assignment-points"
+            class="meta-input"
+            placeholder="100"
+            value="100"
+          />
+        </div>
+      </div>
+
+      <!-- Question List Container -->
+      <div id="questions-wrapper">
+        <div id="empty-state" class="empty-state">
+          No questions added yet. Click "+ Add Question" below to start.
+        </div>
+        <div id="container"></div>
+      </div>
+
+      <div class="add-btn-container">
+        <button id="add-question" title="Add a new question!">
+          + Add Question
+        </button>
+      </div>
+
+      <!-- Deploy Button Container -->
+      <div class="deploy-container">
+        <button id="deploy-btn" class="btn btn-deploy">
+          Deploy and Send
+        </button>
+      </div>
+
+      <!-- Proceed / Deployment Success View -->
+      <div id="proceed-page">
+        <h2>Assignment Ready for Deployment</h2>
+        <p id="deploy-summary-text">
+          Your assignment has been validated and generated.
+        </p>
+        <button id="back-to-edit" class="btn btn-gray">← Back to Editor</button>
+      </div>
     </main>
 
-    <!-- The original JavaScript code is preserved here -->
-    <script type="module">
-        const API_URL="http://myIPAddressFake:5000"
-        
-        function ghtpe(a) {
-          if (!Array.isArray(a)) {
-            console.error("'a' is supposed to be an array");
-            return;
-          }
-
-          const pd = document.createElement("div");
-          pd.id = "pd";
-
-          const ind = document.createElement("select");
-          ind.id = "ind";
-          pd.appendChild(ind);
-
-          a.forEach(b => {
-            const pid = document.createElement("option");
-            pid.textContent = `Class: ${b.grade} | Section: ${b.section}`;
-            ind.appendChild(pid);
-          });
-
-          document.body.appendChild(pd);
-        }
-        const ma = {
-          questions: [],
-          options: [[]]
-        };
-
-        document.addEventListener("click", (e) => {
-            if (e.target.classList.contains("add-option")) {
-                const questionDiv = e.target.closest(".question");
-                const qIndex = parseInt(questionDiv.dataset.index, 10);
-
-                if (ma.options[qIndex].length >= 4) {
-                    return console.error("Maximum of 4 options allowed.");
-                }
-
-                const optIndex = ma.options[qIndex].length;
-                ma.options[qIndex].push("");
-
-                // Create wrapper
-                const wrapper = document.createElement("div");
-                wrapper.className = "option-wrapper";
-                wrapper.style.position = "relative";
-
-                // Create input
-                const optionInput = document.createElement("input");
-                optionInput.type = "text";
-                optionInput.className = "option-input w-full mb-2";
-                optionInput.placeholder = `Option ${optIndex + 1}`;
-
-                // Create delete button
-                const deleteBtn = document.createElement("button");
-                deleteBtn.className = "delete-option bg-red-600 hover:bg-red-700 text-white font-medium transition-colors";
-                deleteBtn.textContent = "x";
-                deleteBtn.style.cssText = `
-                    padding: 5px;
-                    position: absolute;
-                    right: 5px;
-                    top: 10px;
-                    height: 30px;
-                    width: 30px;
-                    text-align: center;
-                    border-radius: 6px;
-                `;
-
-                wrapper.appendChild(optionInput);
-                wrapper.appendChild(deleteBtn);
-                questionDiv.querySelector(".options").appendChild(wrapper);
-
-                // Update model on input
-                optionInput.addEventListener("input", (ev) => {
-                    ma.options[qIndex][optIndex] = ev.target.value;
-                });
-            }
-        });
-
-        document.addEventListener("click", (e) => {
-          if (e.target.classList.contains("delete-option")) {
-              const wrapper = e.target.closest(".option-wrapper");
-              const questionDiv = e.target.closest(".question");
-              const qIndex = parseInt(questionDiv.dataset.index, 10);
-
-              const optIndex = Array.from(
-                  questionDiv.querySelectorAll(".option-wrapper")
-              ).indexOf(wrapper);
-
-              // Remove from data model
-              ma.options[qIndex].splice(optIndex, 1);
-
-              // Remove from UI
-              wrapper.remove();
-
-              // Re‑label remaining options
-              questionDiv.querySelectorAll(".option-wrapper input").forEach((inp, i) => {
-                  inp.placeholder = `Option ${i + 1}`;
-              });
-          }
-      });
-
-
-        document.getElementById("add-question").addEventListener("click", () => {
-          const qIndex = ma.questions.length;
-          ma.questions.push("");
-          ma.options.push([]);
-
-          const newQ = document.createElement("div");
-          newQ.className = "question";
-          newQ.dataset.index = qIndex;
-          newQ.style.position = "relative"
-          // Added styling to the button within the innerHTML
-          newQ.innerHTML = `
-            <label for="qi${qIndex}" class="ql">Question ${qIndex + 1}:</label>
-            <input type="text" id="qi${qIndex}" class="question-input" placeholder="Enter the question text...">
-            <button class="add-option bg-[var(--btn-clr)] hover:bg-[var(--btn-hover-clr)] text-white font-medium py-2 px-4 rounded-lg transition-colors mt-2">Add Option</button>
-            <button class="delete-question bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors mt-2" style="padding: 5px; position: absolute; top: 0px; right: 4px" title="Delete Question">X</button>
-            <div class="options"></div>
-        `;
-
-
-          document.getElementById("container").insertBefore(newQ, document.getElementById("add-question"));
-
-          // Attach listener to update question text
-          newQ.querySelector(".question-input").addEventListener("input", (ev) => {
-            ma.questions[qIndex] = ev.target.value;
-          });
-        });
-
-        function preview() {
-          const old = document.getElementById("prepo");
-          if (old) old.remove();
-          
-          const div = document.createElement("div");
-          div.id = "prepo";
-          
-          ma.questions.forEach((p, index) => {
-            const qBlock = document.createElement("div");
-            qBlock.className = "mb-4 p-3 bg-[var(--hover-clr)] rounded";
-            qBlock.innerHTML = `<strong class="text-[var(--acent-clr)]">Q${index + 1}:</strong> ${p || 'No question text'}`;
-            
-            const opts = document.createElement("div");
-            opts.className = "mt-2 space-y-1 text-sm text-[var(--secondary-text-clr)]";
-            ma.options[index].forEach(o => {
-              const opt = document.createElement("div");
-              opt.textContent = `- ${o || 'Empty option'}`;
-              opts.appendChild(opt);
-            });
-
-            qBlock.appendChild(opts);
-            div.appendChild(qBlock);
-            div.appendChild(document.createElement("br"));
-          });
-          
-          const dbtn = document.createElement("button")
-          dbtn.innerHTML = "Destroy Preview"
-          dbtn.className = "mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors w-full";
-          dbtn.addEventListener("click", (e)=>{
-            div.remove()
-          })
-          
-          div.appendChild(dbtn)
-          document.body.appendChild(div);
-        }
-
-        document.getElementById("prepobtn").addEventListener("click", ()=>preview())
-        
-        document.addEventListener("click", (e) => {
-          if (e.target.classList.contains("delete-question")) {
-              const questionDiv = e.target.closest(".question");
-              const qIndex = parseInt(questionDiv.dataset.index, 10);
-
-              // Remove from data model
-              ma.questions.splice(qIndex, 1);
-              ma.options.splice(qIndex, 1);
-
-              // Remove from UI
-              questionDiv.remove();
-
-              // Re-index remaining questions
-              document.querySelectorAll(".question").forEach((q, newIndex) => {
-                  q.dataset.index = newIndex;
-                  q.querySelector(".ql").textContent = `Question ${newIndex + 1} Content:`;
-              });
-          }
-      });
-      document.addEventListener("click", (e)=>{
-
-      })
-    </script>
-    <script>
-      
-    </script>
-</body>
+    <script type="module" src="assigns.js"></script>
+  </body>
 </html>
