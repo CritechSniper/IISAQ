@@ -109,7 +109,7 @@
     </div>
 
     <script type="module">
-        import { tl } from "./login/login.js";
+        import { tl } from "/login.js";
 
         const urlParams = new URLSearchParams(window.location.search);
         const userType = urlParams.get('t');
@@ -167,7 +167,7 @@
                 showMessage(`Login failed. ${maxAttempts - attempts} attempts left.`, "error");
             } else {
                 showMessage("Success! Redirecting...", "success");
-                r.data.password = "InvalidRequest"; // Hide password in storage
+                r.data.password = "InvalidRequest";
                 localStorage.setItem(`lcds?t=${userType}`, JSON.stringify(r));
                 setTimeout(() => {
                     window.location.href = userType === 't' ? "teac/index.html" : "stu/index.html";
