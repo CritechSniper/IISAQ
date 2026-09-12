@@ -167,7 +167,6 @@
                 showMessage(`Login failed. ${maxAttempts - attempts} attempts left.`, "error");
             } else {
                 showMessage("Success! Redirecting...", "success");
-                r.data.password = "InvalidRequest";
                 localStorage.setItem(`lcds?t=${userType}`, JSON.stringify(r));
                 setTimeout(() => {
                     window.location.href = userType === 't' ? "teac/index.html" : "stu/index.html";
