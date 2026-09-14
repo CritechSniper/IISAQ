@@ -159,7 +159,7 @@
 
             const role = userType === 't' ? 'teach' : 'stud';
             const r = await tl(role, sidValue, pwdValue);
-
+            
             if (r.status === "Fail" || r.error) {
                 if (r.error) {
                     return showMessage(`Internal Server Error: ${r.error}. Please try again later.`, "error")

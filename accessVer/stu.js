@@ -60,5 +60,5 @@ const classIn = document.getElementById("class");
 const teacInCharge = document.getElementById("classTeac");
 if (classIn || teacInCharge) {
 	classIn.textContent = `${JSON.parse(ls).data.grade} ${JSON.parse(ls).data.section}`;
-	teacInCharge.textContent = JSON.parse(ls).data.teacherName
+	teacInCharge.textContent = JSON.parse(ls).data.teachName
 }
