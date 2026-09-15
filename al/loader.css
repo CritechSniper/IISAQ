@@ -141,9 +141,7 @@
 }
 
 .bulb-flicker {
-  /* fill: #333; */
   transition: fill 0.2s;
-  /* animation: flicker-sync 5s infinite;  */
 }
 @keyframes flicker-sync-left {
   0%, 30% {
