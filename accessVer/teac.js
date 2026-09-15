@@ -45,15 +45,16 @@ if (!authCheck) {
 
 
 const ls = localStorage.getItem("lcds?t=t")
+const lsData = JSON.parse(ls)
 if (!ls) { window.location.href = "../login.html?t=t" }
-const username = JSON.parse(ls).data.name
-const invEL = document.getElementById("username")
-const welcomeText = document.querySelector(".welcomeText")
+const username = lsData.data.name
+document.getElementById("username").innerText = `${username}`
+document.querySelector(".welcomeText").innerHTML = `Welcome <span class="username">${username}</span>.`
 console.log(ls)
-invEL.innerText = `${username}`
-welcomeText.innerHTML = `Welcome <span class="username">${username}</span>.`
 
-const classInCharge = document.getElementById("classInCharge");
-const subject = document.getElementById("subject");
-classInCharge.textContent = `${JSON.parse(ls).data.class.grade} ${JSON.parse(ls).data.class.section}`;
-subject.textContent = JSON.parse(ls).data.subject.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()); // this for the capialization
+document.getElementById("classInCharge").textContent = `${lsData.data.class.grade} ${lsData.data.class.section}`;;
+document.getElementById("subject").textContent = lsData.data.subject.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()); // this for the capialization
+
+
+console.log(`%c${lsData.data.subject}`, "color:red; font-family:Segoe UI");
+console.log(`%c${lsData.data.subject}`, "color:red; font-family:Segoe UI");
