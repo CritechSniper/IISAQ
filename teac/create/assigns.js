@@ -11,6 +11,19 @@ const assignmentState = {
 
 const API_BASE_URL = "https://maqwal-backend-ljrn.onrender.com";
 
+function getLoggedInTeacher() {
+  const ls = localStorage.getItem("lcds?t=t");
+  if (!ls) return null;
+
+  const lsData = JSON.parse(ls)?.data || {};
+  return {
+    name: lsData.name || "Teacher",
+    grade: lsData.class?.grade || "",
+    section: lsData.class?.section || "",
+    subject: lsData.subject || "",
+  };
+}
+
 // DOM Elements
 const containerEl = document.getElementById("container");
 const emptyStateEl = document.getElementById("empty-state");
@@ -426,15 +439,17 @@ async function handleDeploy() {
     question: qText,
     options: assignmentState.options[index],
     answer: assignmentState.correctAnswers[index],
-    answers: ['']
+    answers: [""],
   }));
+
+  const teacher = getLoggedInTeacher();
 
   const assignmentPayload = {
     name: titleVal,
-    assigner: "suseendha",
-    grade: "9",
-    section: "B",
-    subject: "ICT",
+    assigner: teacher?.name || "Teacher",
+    grade: String(teacher?.grade || ""),
+    section: String(teacher?.section || ""),
+    subject: teacher?.subject || "",
     dueDate: dateVal,
     questions: questionsPayload,
   };
@@ -482,26 +497,27 @@ async function handleDeploy() {
   proceedPage.style.display = "block";
 
   // Direct Submission to Backend API
-  document
-    .getElementById("confirm-submit-btn")
-    .onclick = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/assign`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(assignmentPayload),
-        });
+  document.getElementById("confirm-submit-btn").onclick = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/assign`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(assignmentPayload),
+      });
 
-        const data = await response.json();
-        if (data.status === "Success" || data.id) {
-          alert("Assignment deployed successfully to MongoDB! ID: " + (data.id || "Saved"));
-        } else {
-          alert("Error saving assignment: " + (data.body || "Unknown error"));
-        }
-      } catch (err) {
-        alert("Failed to connect to Render backend: " + err.message);
+      const data = await response.json();
+      if (data.status === "Success" || data.id) {
+        alert(
+          "Assignment deployed successfully to MongoDB! ID: " +
+            (data.id || "Saved"),
+        );
+      } else {
+        alert("Error saving assignment: " + (data.body || "Unknown error"));
       }
-    };
+    } catch (err) {
+      alert("Failed to connect to Render backend: " + err.message);
+    }
+  };
 }
 
 // Action: Return to Editor from Proceed Page

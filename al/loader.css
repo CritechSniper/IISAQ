@@ -25,7 +25,7 @@
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  animation: move-up 0.8s ease-in-out 5s forwards;
+  animation: move-up 0.8s ease-in-out 3s forwards;
 }
 
 .mainG svg {
@@ -60,7 +60,7 @@
 /* 2. Identity Card Styling */
 .Udetails {
   opacity: 0;
-  animation: udetails-fade-in 0.8s ease-out 5.3s forwards;
+  animation: udetails-fade-in 0.8s ease-out 3s forwards;
 }
 
 .details-card {
