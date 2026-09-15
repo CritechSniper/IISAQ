@@ -531,3 +531,10 @@ main {
   color: var(--secondary-text-clr);
   margin-bottom: 2rem;
 }
+
+#proceed-page.processing {
+  pointer-events: none;
+  filter: blur(4px) brightness(0.6);
+  transition: filter 0.3s ease;
+  user-select: none;
+}

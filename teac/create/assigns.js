@@ -497,7 +497,18 @@ async function handleDeploy() {
   proceedPage.style.display = "block";
 
   // Direct Submission to Backend API
-  document.getElementById("confirm-submit-btn").onclick = async () => {
+  document.getElementById("confirm-submit-btn").onclick = async function () {
+    const submitBtn = this;
+    const proceedPage = document.getElementById("proceed-page");
+
+    // Disable button & show visual loading state
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Deploying to MongoDB...";
+    submitBtn.style.cursor = "not-allowed";
+
+    // Add loading class for dimming/blurring
+    proceedPage.classList.add("processing");
+
     try {
       const response = await fetch(`${API_BASE_URL}/assign`, {
         method: "POST",
@@ -516,6 +527,11 @@ async function handleDeploy() {
       }
     } catch (err) {
       alert("Failed to connect to Render backend: " + err.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Confirm & Send to MongoDB";
+      submitBtn.style.cursor = "pointer";
+      proceedPage.classList.remove("processing");
     }
   };
 }
