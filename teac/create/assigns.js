@@ -9,6 +9,8 @@ const assignmentState = {
   points: [], // Stores points per question
 };
 
+const API_BASE_URL = "https://maqwal-backend-ljrn.onrender.com";
+
 // DOM Elements
 const containerEl = document.getElementById("container");
 const emptyStateEl = document.getElementById("empty-state");
@@ -21,7 +23,7 @@ function autoExpandTextarea(element) {
   element.style.height = `${element.scrollHeight}px`;
 }
 
-// Update placeholders and radio values after removing an option
+// Update placeholders and radio values after removing an optionl
 function reindexOptionPlaceholders(questionDiv) {
   const qIndex = parseInt(questionDiv.dataset.index, 10);
   const optionWrappers = questionDiv.querySelectorAll(".option-wrapper");
@@ -39,7 +41,7 @@ function reindexOptionPlaceholders(questionDiv) {
   });
 }
 
-// Re-index questions and update state after dynamic layout changes
+// Update placeholders and radio values after removing an optionl
 function reindexQuestions() {
   const questionBlocks = containerEl.querySelectorAll(".question");
   const deployBtn = document.getElementById("deploy-btn");
@@ -417,27 +419,23 @@ async function handleDeploy() {
   }
 
   const dateInput = document.getElementById("assignment-due").value;
-  const dateVal = dateInput ? dateInput : "No Due Date";
-  const pointsVal =
-    parseInt(document.getElementById("assignment-points")?.value, 10) || 100;
+  const dateVal = dateInput ? dateInput : "29/11/2025";
 
-  // Format array to match MongoDB screenshot schema exactly
+  // Build structure strictly matching the MongoDB image
   const questionsPayload = assignmentState.questions.map((qText, index) => ({
     question: qText,
     options: assignmentState.options[index],
     answer: assignmentState.correctAnswers[index],
-    points: assignmentState.points[index] || 1,
-    answers: [],
+    answers: ['']
   }));
 
   const assignmentPayload = {
     name: titleVal,
-    assigner: "Teacher", // Customize assigner info as needed
-    grade: "10",
-    section: "A",
-    subject: "General",
+    assigner: "suseendha",
+    grade: "9",
+    section: "B",
+    subject: "ICT",
     dueDate: dateVal,
-    totalPoints: pointsVal,
     questions: questionsPayload,
   };
 
@@ -446,15 +444,15 @@ async function handleDeploy() {
   document.querySelector(".add-btn-container").style.display = "none";
   document.querySelector(".deploy-container").style.display = "none";
 
-  // Show Proceed Page with Preview & Confirmation
+  // Render Proceed Page Preview
   const proceedPage = document.getElementById("proceed-page");
   const summaryText = document.getElementById("deploy-summary-text");
 
   let questionsPreviewHTML = assignmentPayload.questions
     .map(
       (q, idx) => `
-    <div style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; text-align: left;">
-      <strong>Q${idx + 1}: ${q.question}</strong> (${q.points} pts)<br>
+    <div style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; text-align: left; background: #fff;">
+      <strong>Q${idx + 1}: ${q.question}</strong><br>
       <ul style="margin: 5px 0; padding-left: 20px;">
         ${q.options
           .map(
@@ -470,39 +468,40 @@ async function handleDeploy() {
     .join("");
 
   summaryText.innerHTML = `
-    <h3>Assignment Summary</h3>
-    <strong>Title:</strong> ${titleVal}<br>
-    <strong>Due Date:</strong> ${dateVal}<br>
-    <strong>Total Score:</strong> ${pointsVal} pts<br>
+    <h3>Assignment Summary & Final Review</h3>
+    <strong>Title:</strong> ${assignmentPayload.name}<br>
+    <strong>Assigner:</strong> ${assignmentPayload.assigner}<br>
+    <strong>Class:</strong> Grade ${assignmentPayload.grade}-${assignmentPayload.section} (${assignmentPayload.subject})<br>
+    <strong>Due Date:</strong> ${assignmentPayload.dueDate}<br>
     <hr>
-    <strong>Questions (${assignmentState.questions.length}):</strong>
+    <strong>Questions (${assignmentPayload.questions.length}):</strong>
     ${questionsPreviewHTML}
     <br>
-    <button id="confirm-submit-btn" class="btn btn-accent full-width" style="margin-top: 15px;">Confirm & Submit to MongoDB</button>
+    <button id="confirm-submit-btn" class="btn btn-accent full-width" style="margin-top: 15px;">Confirm & Send to MongoDB</button>
   `;
   proceedPage.style.display = "block";
 
-  // Handle final submission to API
+  // Direct Submission to Backend API
   document
     .getElementById("confirm-submit-btn")
-    .addEventListener("click", async () => {
+    .onclick = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/assignments", {
+        const response = await fetch(`${API_BASE_URL}/assign`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(assignmentPayload),
         });
 
         const data = await response.json();
-        if (data.success) {
-          alert("Assignment successfully saved to MongoDB! ID: " + data.id);
+        if (data.status === "Success" || data.id) {
+          alert("Assignment deployed successfully to MongoDB! ID: " + (data.id || "Saved"));
         } else {
-          alert("Error saving assignment: " + data.error);
+          alert("Error saving assignment: " + (data.body || "Unknown error"));
         }
       } catch (err) {
-        alert("Failed to connect to backend server: " + err.message);
+        alert("Failed to connect to Render backend: " + err.message);
       }
-    });
+    };
 }
 
 // Action: Return to Editor from Proceed Page
