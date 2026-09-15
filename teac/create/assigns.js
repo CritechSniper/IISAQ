@@ -432,7 +432,7 @@ async function handleDeploy() {
   }
 
   const dateInput = document.getElementById("assignment-due").value;
-  const dateVal = dateInput ? dateInput : "29/11/2025";
+  const dateVal = dateInput.trim() ? dateInput.trim() : "No Due Date";
 
   // Build structure strictly matching the MongoDB image
   const questionsPayload = assignmentState.questions.map((qText, index) => ({
@@ -466,7 +466,7 @@ async function handleDeploy() {
   let questionsPreviewHTML = assignmentPayload.questions
     .map(
       (q, idx) => `
-    <div style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; text-align: left; background: #fff;">
+    <div style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; text-align: left; background: #11121a;">
       <strong>Q${idx + 1}: ${q.question}</strong><br>
       <ul style="margin: 5px 0; padding-left: 20px;">
         ${q.options
