@@ -131,7 +131,7 @@ function addQuestion() {
         <input type="number" class="points-input" value="1" min="1">
       </div>
     </div>
-    <input type="text" id="qi${qIndex}" class="question-input" placeholder="Enter the question text...">
+    <input type="text" id="qi${qIndex}" class="question-input" autocomplete="off" placeholder="Enter the question text...">
     <div class="options"></div>
     <div class="question-actions">
       <button class="add-option btn btn-accent">+ Add Option</button>
