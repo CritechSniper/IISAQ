@@ -45,20 +45,26 @@ if (!authCheck) {
 	startRedirectSequence();
 }
 
-// user stuff, added ifs cuz tooo annoying across multiple pages
-const ls = localStorage.getItem("lcds?t=s")
-if (!ls) { window.location.href = "../login.html?t=s" }
-const username = JSON.parse(ls).data.name
-const invEL = document.getElementById("username")
-const welcomeText = document.querySelector(".welcomeText")
-console.log(ls)
-if (invEL || welcomeText) {
-	invEL.innerText = `${username}`
-	welcomeText.innerHTML = `Welcome <span class="username">${username}</span>.`
-}
-const classIn = document.getElementById("class");
-const teacInCharge = document.getElementById("classTeac");
-if (classIn || teacInCharge) {
-	classIn.textContent = `${JSON.parse(ls).data.grade} ${JSON.parse(ls).data.section}`;
-	teacInCharge.textContent = JSON.parse(ls).data.teachName
+const ls = localStorage.getItem("lcds?t=s");
+
+if (!ls) { 
+    window.location.href = "../login.html?t=s"; 
+} else {
+    const lsData = JSON.parse(ls)?.data || {};
+
+    const invEL = document.getElementById("username");
+    const welcomeText = document.querySelector(".welcomeText");
+    const classIn = document.getElementById("class");
+    const teacInCharge = document.getElementById("classTeac");
+
+    if (invEL) invEL.innerText = lsData.name || '';
+    if (welcomeText) welcomeText.innerHTML = `Welcome <span class="username">${lsData.name || ''}</span>.`;
+    
+    if (classIn) classIn.textContent = `${lsData.grade || ''} ${lsData.section || ''}`;
+    if (teacInCharge) teacInCharge.textContent = lsData.teachName || '';
+
+    const logStyle = "color: white; font-family: Segoe UI;";
+    console.log(`%cStudent Name: ${lsData.name}`, logStyle);
+    console.log(`%cClass: ${lsData.grade}-${lsData.section}`, logStyle);
+    console.log(`%cTeacher In-Charge: ${lsData.teachName}`, logStyle);
 }

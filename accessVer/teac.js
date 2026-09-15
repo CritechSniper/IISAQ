@@ -44,17 +44,30 @@ if (!authCheck) {
 }
 
 
-const ls = localStorage.getItem("lcds?t=t")
-const lsData = JSON.parse(ls)
-if (!ls) { window.location.href = "../login.html?t=t" }
-const username = lsData.data.name
-document.getElementById("username").innerText = `${username}`
-document.querySelector(".welcomeText").innerHTML = `Welcome <span class="username">${username}</span>.`
-console.log(ls)
+const ls = localStorage.getItem("lcds?t=t");
 
-document.getElementById("classInCharge").textContent = `${lsData.data.class.grade} ${lsData.data.class.section}`;;
-document.getElementById("subject").textContent = lsData.data.subject.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()); // this for the capialization
+if (!ls) {
+    window.location.href = "../login.html?t=t";
+} else {
+    const lsData = JSON.parse(ls)?.data || {};
 
+    const usernameEl = document.getElementById("username");
+    const welcomeText = document.querySelector(".welcomeText");
+    const classInChargeEl = document.getElementById("classInCharge");
+    const subjectEl = document.getElementById("subject");
 
-console.log(`%c${lsData.data.subject}`, "color:red; font-family:Segoe UI");
-console.log(`%c${lsData.data.subject}`, "color:red; font-family:Segoe UI");
+    const formattedSubject = lsData.subject 
+        ? lsData.subject.toLowerCase().replace(/\b\w/g, s => s.toUpperCase()) 
+        : '';
+
+    if (usernameEl) usernameEl.innerText = lsData.name || '';
+    if (welcomeText) welcomeText.innerHTML = `Welcome <span class="username">${lsData.name || ''}</span>.`;
+    if (classInChargeEl) classInChargeEl.textContent = `${lsData.class?.grade || ''} ${lsData.class?.section || ''}`;
+    if (subjectEl) subjectEl.textContent = formattedSubject;
+
+    const logStyle = "color: white; font-family: Segoe UI;";
+    console.log(`%cTeacher Name: ${lsData.name}`, logStyle);
+    console.log(`%cSubject: ${lsData.subject}`, logStyle);
+    console.log(`%cClass: ${lsData.class?.grade}-${lsData.class?.section}`, logStyle);
+    console.log(`%cNumber of Students: ${lsData.class?.nstu}`, logStyle);
+}
